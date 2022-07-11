@@ -1,0 +1,6 @@
+[
+  {
+    "name": "class_name",
+    "pattern": "(\\bInformation\\ Systems\\b|\\bData\\ Analysis\\b|\\bADAMS\\b|\\bBADS\\b|\\bSocial\\ preferences\\b|\\bSpanish\\ B1\\b|\\bCACI\\b|\\bAPA\\b)"
+  }
+]

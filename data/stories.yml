@@ -1,0 +1,82 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: moodle link
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: moodle_link
+  - action: action_get_moodle_link
+
+- story: moodle link short
+  steps:
+  - intent: moodle_link
+  - action: action_get_moodle_link
+
+- story: start time
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: start_time
+  - action: action_get_start_time
+
+- story: start time short
+  steps:
+  - intent: start_time
+  - action: action_get_start_time
+
+- story: does class exist
+  steps:
+  - intent: confirm_exists
+  - action: action_check_existence
+
+- story: moodle link
+  steps:
+  - intent: moodle_link
+  - action: action_get_moodle_link
+
+- story: test 1
+  steps:
+  - intent: confirm_exists
+  - action: action_check_existence
+  - intent: start_time
+  - action: action_get_start_time
+  - intent: start_time
+  - action: action_get_start_time
+
+- story: test 2
+  steps:
+  - intent: start_time
+  - action: action_get_start_time
+  - intent: start_time
+  - action: action_get_start_time
+  - intent: confirm_exists
+  - action: action_check_existence
