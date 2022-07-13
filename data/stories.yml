@@ -41,17 +41,17 @@ stories:
   - intent: moodle_link
   - action: action_get_moodle_link
 
-- story: start time
+- story: start time with class type
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
 
-- story: start time short
+- story: start time short with class type
   steps:
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
 
 - story: does class exist
   steps:
@@ -67,16 +67,16 @@ stories:
   steps:
   - intent: confirm_exists
   - action: action_check_existence
-  - intent: start_time
-  - action: action_get_start_time
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
 
 - story: test 2
   steps:
-  - intent: start_time
-  - action: action_get_start_time
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
+  - intent: start_time_with_class_type
+  - action: action_get_start_time_with_class_type
   - intent: confirm_exists
   - action: action_check_existence

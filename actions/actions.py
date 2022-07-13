@@ -41,12 +41,13 @@ PSY_CONN_PUB = psycopg2.connect(
     password=PASSWORD,
     )
 PSY_CONN_PUB.autocommit = True
-
+df = pd.read_sql('Select a from test_table', con=SQA_CONN_PUB)
+CLASS_NAMES = df['a'].values.tolist()
+df = pd.read_sql('Select types from class_type', con=SQA_CONN_PUB)
+CLASS_TYPES = df['types'].values.tolist()
 
 
 class ActionCheckExistence(Action):
-    knowledge = Path("data/class_name.txt").read_text().split("\n")
-
     def name(self) -> Text:
         return "action_check_existence"
 
@@ -57,9 +58,8 @@ class ActionCheckExistence(Action):
             print(tracker.latest_message)
             if blob['entity'] == 'class_name':
                 name = blob['value']
-                if name in self.knowledge:
+                if name in CLASS_NAMES:
                     df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-                    df.iloc[0]['a']
                     dispatcher.utter_message(text=f"Yes, {name} is a class name. Find it under {df.iloc[0]['a']}")
                 else:
                     dispatcher.utter_message(
@@ -68,10 +68,8 @@ class ActionCheckExistence(Action):
 
 
 class ActionGetStartTime(Action):
-    knowledge = Path("data/class_name.txt").read_text().split("\n")
-
     def name(self) -> Text:
-        return "action_get_start_time"
+        return "action_get_start_time_with_class_type"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -80,8 +78,9 @@ class ActionGetStartTime(Action):
             print(tracker.latest_message)
             if blob['entity'] == 'class_name':
                 name = blob['value']
-                if name in self.knowledge:
-                    dispatcher.utter_message(text=f"The class {name} starts at 9 am.")
+                if name in CLASS_NAMES:
+                    df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
+                    dispatcher.utter_message(text=f"The class {name} starts at {df.loc[df['a'] == name]['b'].values.tolist()[0]} am.")
                 else:
                     dispatcher.utter_message(
                         text=f"I do not recognize {name}, are you sure it is correctly spelled?")
@@ -89,8 +88,6 @@ class ActionGetStartTime(Action):
 
 
 class ActionGetMoodleLink(Action):
-    knowledge = Path("data/class_name.txt").read_text().split("\n")
-
     def name(self) -> Text:
         return "action_get_moodle_link"
 
@@ -101,9 +98,8 @@ class ActionGetMoodleLink(Action):
             print(tracker.latest_message)
             if blob['entity'] == 'class_name':
                 name = blob['value']
-                if name in self.knowledge:
+                if name in CLASS_NAMES:
                     df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-                    df.iloc[0]['a']
                     dispatcher.utter_message(text=f"Yes, {name} is a class name. Find it under {df.iloc[0]['a']}")
                 else:
                     dispatcher.utter_message(

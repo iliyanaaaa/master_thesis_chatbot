@@ -9,16 +9,19 @@ intents:
   - mood_unhappy
   - bot_challenge
   - moodle_link
-  - start_time
+  - start_time_without_class_type
+  - start_time_with_class_type
   - confirm_exists
 
 entities:
   - class_name
+  - class_type
 
 actions:
   - utter_greet
   - utter_cheer_up
-  - action_get_start_time
+  - action_get_start_time_with_class_type
+  - action_get_start_time_without_class_type
   - action_get_moodle_link
   - action_check_existence
 

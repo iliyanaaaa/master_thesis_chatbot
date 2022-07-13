@@ -97,22 +97,28 @@ nlu:
     - Moodle link [Information Systems](class_name)?
     - Would you give me the moodle link to [Information Systems](class_name)?
 
-- intent: start_time
+- intent: start_time_without_class_type
   examples: |
     - What time does [APA](class_name) start?
     - When does [Information Systems](class_name) start?
     - When is [Social preferences](class_name) taking place?
     - When does the class [CACI](class_name) start?
 
+- intent: start_time_with_class_type
+  examples: |
+    - What time does the [lecture](class_type) [APA](class_name) start?
+    - When does the [exercise](class_type) [Information Systems](class_name) start?
+    - When is the [seminar](class_type) [Social preferences](class_name) taking place?
+    - When does the [lecture](class_type) [CACI](class_name) start?
+
 - intent: confirm_exists
   examples: |
     - is [CACI](class_name) a class
     - does [Data Analysis](class_name) exist
     - ever heard of [Social preferences](class_name)
-    - are [APA](class_name) and [charmander](class_name)  class?
     - is [Data Analysis](class_name) a class?
     - hey is [Social preferences](class_name) a class?
-    - are [CACI](class_name) and [charmander](class_name) classes?
+    - are [CACI](class_name) and [Data Analysis](class_name) classes?
     - are [APA](class_name), [Social preferences](class_name) and [CACI](class_name) classes?
 
 - lookup: class_name
