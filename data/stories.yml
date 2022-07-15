@@ -41,17 +41,18 @@ stories:
   - intent: moodle_link
   - action: action_get_moodle_link
 
-- story: start time with class type
+- story: start time
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
+  - intent: start_time
+  - action: action_get_start_time
 
-- story: start time short with class type
+
+- story: start time short
   steps:
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
+  - intent: start_time
+  - action: action_get_start_time
 
 - story: does class exist
   steps:

@@ -97,19 +97,13 @@ nlu:
     - Moodle link [Information Systems](class_name)?
     - Would you give me the moodle link to [Information Systems](class_name)?
 
-- intent: start_time_without_class_type
+- intent: start_time
   examples: |
     - What time does [APA](class_name) start?
     - When does [Information Systems](class_name) start?
     - When is [Social preferences](class_name) taking place?
     - When does the class [CACI](class_name) start?
 
-- intent: start_time_with_class_type
-  examples: |
-    - What time does the [lecture](class_type) [APA](class_name) start?
-    - When does the [exercise](class_type) [Information Systems](class_name) start?
-    - When is the [seminar](class_type) [Social preferences](class_name) taking place?
-    - When does the [lecture](class_type) [CACI](class_name) start?
 
 - intent: confirm_exists
   examples: |
@@ -121,6 +115,15 @@ nlu:
     - are [CACI](class_name) and [Data Analysis](class_name) classes?
     - are [APA](class_name), [Social preferences](class_name) and [CACI](class_name) classes?
 
+- intent: lecturer
+  examples: |
+    - Lecturer [CACI](class_name)
+    - Who is the lecturer for the class [Social preferences](class_name)?
+    - [Information Systems](class_name) professor
+    - Who is teaching [Data Analysis](class_name)?
+    - Who teaches [BADS](class_name) class?
+    - Who is the lecturer of [Social preferences](class_name)
+
 - lookup: class_name
   examples: |
     - Information Systems
@@ -131,4 +134,11 @@ nlu:
     - Spanish B1
     - CACI
     - APA
+
+- lookup: class_type
+  examples: |
+    - lecture
+    - exercise
+    - seminar
+
 

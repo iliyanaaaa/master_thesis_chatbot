@@ -69,7 +69,7 @@ class ActionCheckExistence(Action):
 
 class ActionGetStartTime(Action):
     def name(self) -> Text:
-        return "action_get_start_time_with_class_type"
+        return "action_get_start_time"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -77,13 +77,36 @@ class ActionGetStartTime(Action):
         for blob in tracker.latest_message['entities']:
             print(tracker.latest_message)
             if blob['entity'] == 'class_name':
-                name = blob['value']
-                if name in CLASS_NAMES:
-                    df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-                    dispatcher.utter_message(text=f"The class {name} starts at {df.loc[df['a'] == name]['b'].values.tolist()[0]} am.")
-                else:
-                    dispatcher.utter_message(
-                        text=f"I do not recognize {name}, are you sure it is correctly spelled?")
+                class_name = blob['value']
+        if class_name in CLASS_NAMES:
+            dispatcher.utter_message(text=f"Do you wanna know more about the lecture or the exercise of {class_name}?")
+        else:
+            dispatcher.utter_message(
+                text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")
+        return []
+
+
+class ActionGetLecturer(Action):
+    def name(self) -> Text:
+        return "action_lecturer"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        class_name = None
+        class_type = None
+        for blob in tracker.latest_message['entities']:
+            print(tracker.latest_message)
+            if blob['entity'] == 'class_name':
+                class_name = blob['value']
+            elif blob['entity'] == 'class_name':
+                class_type = blob['class_type']
+        if class_name in CLASS_NAMES:
+            df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
+            dispatcher.utter_message(text=f"Yes, {class_name} is a class name. Find it under {df.iloc[0]['a']}")
+        else:
+            dispatcher.utter_message(
+                text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")
         return []
 
 

@@ -9,9 +9,9 @@ intents:
   - mood_unhappy
   - bot_challenge
   - moodle_link
-  - start_time_without_class_type
-  - start_time_with_class_type
+  - start_time
   - confirm_exists
+  - lecturer
 
 entities:
   - class_name
@@ -20,14 +20,17 @@ entities:
 actions:
   - utter_greet
   - utter_cheer_up
-  - action_get_start_time_with_class_type
-  - action_get_start_time_without_class_type
+  - action_get_start_time
   - action_get_moodle_link
   - action_check_existence
+  - action_lecturer
 
 responses:
   utter_greet:
   - text: "Hey! How are you?"
+
+  utter_welcome:
+  - text: "Hi there! What can I help you with today?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -44,6 +47,12 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+slots:
+  likes_music:
+    type: bool
+    mappings:
+    - type: custom
 
 session_config:
   session_expiration_time: 60
