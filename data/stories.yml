@@ -46,13 +46,37 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: start_time
-  - action: action_get_start_time
+  - action: get_start_time_form
 
 
 - story: start time short
   steps:
   - intent: start_time
-  - action: action_get_start_time
+  - action: get_start_time_form
+  - active_loop: get_start_time_form
+  - active_loop: null
+  - action: utter_slots_values
+
+
+- story: start time short 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: start_time
+  - action: get_start_time_form
+  - active_loop: get_start_time_form
+  - active_loop: null
+  - action: utter_slots_values
+
+#- story: The user asks for the lecture start time
+#  steps:
+#    - intent: start_time
+#      entities:
+#        - class: APA
+#          role: class_name
+#        - class: lecture
+#          role: class_type
+#    - action: action_get_start_time
 
 - story: does class exist
   steps:
@@ -68,16 +92,16 @@ stories:
   steps:
   - intent: confirm_exists
   - action: action_check_existence
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
+  - intent: start_time
+  - action: action_get_start_time
+  - intent: start_time
+  - action: action_get_start_time
 
 - story: test 2
   steps:
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
-  - intent: start_time_with_class_type
-  - action: action_get_start_time_with_class_type
+  - intent: start_time
+  - action: action_get_start_time
+  - intent: start_time
+  - action: action_get_start_time
   - intent: confirm_exists
   - action: action_check_existence

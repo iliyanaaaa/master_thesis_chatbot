@@ -12,7 +12,7 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Ask for the class type if not specified
-  steps:
-    - intent: start_time_without_class_type
-    - action: action_get_start_time_without_class_type
+#- rule: Ask for the class type if not specified
+#  steps:
+#    - intent: start_time_without_class_type
+#    - action: action_get_start_time_without_class_type

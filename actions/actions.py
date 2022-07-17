@@ -12,6 +12,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa.core.actions.forms import FormAction
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -67,23 +68,42 @@ class ActionCheckExistence(Action):
         return []
 
 
-class ActionGetStartTime(Action):
+class ActionGetStartTime(FormAction):
     def name(self) -> Text:
-        return "action_get_start_time"
+        return "get_start_time_form"
 
-    def run(self, dispatcher: CollectingDispatcher,
+    @staticmethod
+    def required_slots(tracker: Tracker) -> List[Text]:
+
+        print('required_slots(tracker:Tracker)')
+        return ['class_type']
+
+    def submit(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        for blob in tracker.latest_message['entities']:
-            print(tracker.latest_message)
-            if blob['entity'] == 'class_name':
-                class_name = blob['value']
-        if class_name in CLASS_NAMES:
-            dispatcher.utter_message(text=f"Do you wanna know more about the lecture or the exercise of {class_name}?")
-        else:
-            dispatcher.utter_message(
-                text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")
+            domain: Dict[Text, Any]) -> List[Dict]:
+
+        dispatcher.utter_message(template="utter_submit")
         return []
+
+
+# class ActionGetStartTime(Action):
+#     def name(self) -> Text:
+#         return "action_get_start_time"
+#
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         for blob in tracker.latest_message['entities']:
+#             print(tracker.latest_message)
+#             dispatcher.utter_message(text=blob['entity'])
+#             if blob['entity'] == 'class_name':
+#                 class_name = blob['value']
+#         if class_name in CLASS_NAMES:
+#             dispatcher.utter_message(text=f"Do you wanna know more about the lecture or the exercise of {class_name}?")
+#         else:
+#             dispatcher.utter_message(
+#                 text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")
+#         return []
 
 
 class ActionGetLecturer(Action):

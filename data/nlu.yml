@@ -97,13 +97,29 @@ nlu:
     - Moodle link [Information Systems](class_name)?
     - Would you give me the moodle link to [Information Systems](class_name)?
 
+#- intent: start_time
+#  examples: |
+#    - What time does [APA](class_name) start?
+#    - When does [Information Systems](class_name) start?
+#    - When is [Social preferences](class_name) taking place?
+#    - When does the class [CACI](class_name) start?
+
 - intent: start_time
   examples: |
-    - What time does [APA](class_name) start?
-    - When does [Information Systems](class_name) start?
-    - When is [Social preferences](class_name) taking place?
-    - When does the class [CACI](class_name) start?
+    - What time does [APA]{"entity": "class", "role": "class_name"}  start?
+    - When does [Information Systems]{"entity": "class", "role": "class_name"} start?
+    - When is [Social preferences]{"entity": "class", "role": "class_name"} taking place?
+    - When does the class [CACI]{"entity": "class", "role": "class_name"} start?
+    - What time does the [lecture]{"entity": "class", "role": "class_type"} [APA]{"entity": "class", "role": "class_name"} start?
+    - When does the [exercise]{"entity": "class", "role": "class_type"} [Information Systems]{"entity": "class", "role": "class_name"} start?
+    - When is the [seminar]{"entity": "class", "role": "class_type"} [Social preferences]{"entity": "class", "role": "class_name"} taking place?
+    - When does the [lecture]{"entity": "class", "role": "class_type"} [CACI]{"entity": "class", "role": "class_name"} start?
 
+- intent: class_type_entry
+  examples: |
+    - [lecture]{"entity": "class", "role": "class_type"} 
+    - [exercise]{"entity": "class", "role": "class_type"} 
+    - [seminar]{"entity": "class", "role": "class_type"} 
 
 - intent: confirm_exists
   examples: |

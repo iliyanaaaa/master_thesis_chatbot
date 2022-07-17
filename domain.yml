@@ -12,10 +12,13 @@ intents:
   - start_time
   - confirm_exists
   - lecturer
+  - class_type_entry
 
 entities:
-  - class_name
-  - class_type
+  - class:
+      roles:
+        - class_name
+        - class_type
 
 actions:
   - utter_greet
@@ -48,11 +51,30 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_slots_values:
+    - text: "I am going to check for the {class_type} of your choice!"
+
+  utter_submit:
+    - text: "All done!"
+
 slots:
-  likes_music:
-    type: bool
+  class_name:
+    type: text
     mappings:
-    - type: custom
+    - type: from_entity
+      entity: class
+      role: class_name
+  class_type:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: class
+      role: class_type
+
+forms:
+  get_start_time_form:
+    required_slots:
+        - class_type
 
 session_config:
   session_expiration_time: 60
