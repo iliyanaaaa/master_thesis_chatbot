@@ -12,6 +12,29 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+#- rule: start time short
+#  steps:
+#  - intent: start_time
+#  - action: action_get_start_time
+
+- rule: activate start time form
+  steps:
+    - intent: start_time
+    - action: simple_start_time_form
+    - active_loop: simple_start_time_form
+
+- rule: submit start time form
+  condition:
+  - active_loop: simple_start_time_form
+  steps:
+  - action: simple_start_time_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+  - action: utter_submit
+  - action: utter_class_slots
+
+
 #- rule: Ask for the class type if not specified
 #  steps:
 #    - intent: start_time_without_class_type

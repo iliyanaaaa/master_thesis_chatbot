@@ -1,11 +1,12 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
     - hey
     - hello
     - hi
+    - hello, my name is [Juste](name)
+    - hi, I'm [Juste](name)
     - hello there
     - good morning
     - good evening
@@ -16,7 +17,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: goodbye
   examples: |
     - cu
@@ -29,7 +29,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -38,7 +37,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -48,7 +46,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -65,7 +62,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -82,64 +78,95 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
-- intent: moodle_link
-  examples: |
-    - What is the moodle link to [Information Systems](class_name)?
-    - Can you give me the moodle link to [Information Systems](class_name)?
-    - Moodle link [Information Systems](class_name)?
-    - Would you give me the moodle link to [Information Systems](class_name)?
-
 #- intent: start_time
 #  examples: |
 #    - What time does [APA](class_name) start?
+#    - What time does [BADS](class_name) start?
+#    - What time does [Business Analytics and Data Science](class_name) start?
 #    - When does [Information Systems](class_name) start?
 #    - When is [Social preferences](class_name) taking place?
 #    - When does the class [CACI](class_name) start?
-
-- intent: start_time
+#    - What time does [APA](class_name) start?
+#    - what time does [APA](class_name) start?
+#    - what time does [APa](class_name) start?
+#- intent: inform_class_type
+#  examples: |
+#    - What time does the [lecture](class_type) [APA](class_name) start?
+#    - When does the [exercise](class_type) [Information Systems](class_name) start?
+#    - When is the [seminar](class_type) [Social preferences](class_name) taking place?
+#    - When does the [lecture](class_type) [CACI](class_name) start?
+#    - [lecture](class_type)
+#    - [l](class_type)
+#    - [vl](class_type)
+#    - [vorlesung](class_type)
+#    - [lect](class_type)
+#    - [exercise](class_type)
+#    - [ex](class_type)
+#    - [ü](class_type)
+#    - [Übung](class_type)
+#    - [seminar](class_type)
+#    - [s](class_type)
+#    - [sem](class_type)
+#    - [Seminar](class_type)
+- intent: stop
   examples: |
-    - What time does [APA]{"entity": "class", "role": "class_name"}  start?
-    - When does [Information Systems]{"entity": "class", "role": "class_name"} start?
-    - When is [Social preferences]{"entity": "class", "role": "class_name"} taking place?
-    - When does the class [CACI]{"entity": "class", "role": "class_name"} start?
-    - What time does the [lecture]{"entity": "class", "role": "class_type"} [APA]{"entity": "class", "role": "class_name"} start?
-    - When does the [exercise]{"entity": "class", "role": "class_type"} [Information Systems]{"entity": "class", "role": "class_name"} start?
-    - When is the [seminar]{"entity": "class", "role": "class_type"} [Social preferences]{"entity": "class", "role": "class_name"} taking place?
-    - When does the [lecture]{"entity": "class", "role": "class_type"} [CACI]{"entity": "class", "role": "class_name"} start?
-
-- intent: class_type_entry
+    - stop
+    - nevermind
+    - please stop
+    - i want to stop
+    - stop the form
+- intent: buy_pizza
   examples: |
-    - [lecture]{"entity": "class", "role": "class_type"} 
-    - [exercise]{"entity": "class", "role": "class_type"} 
-    - [seminar]{"entity": "class", "role": "class_type"} 
-
-- intent: confirm_exists
+    - What time does [APA](pizza_size) start?
+    - What time does [BADS](pizza_size) start?
+    - What time does [Business Analytics and Data Science](pizza_size) start?
+    - When does [Information Systems](pizza_size) start?
+    - When is [Social preferences](pizza_size) taking place?
+    - When does the class [CACI](pizza_size) start?
+    - What time does [APA](pizza_size) start?
+    - what time does [BADS](pizza_size) start?
+    - what time does [APa](pizza_size) start?
+- intent: inform
   examples: |
-    - is [CACI](class_name) a class
-    - does [Data Analysis](class_name) exist
-    - ever heard of [Social preferences](class_name)
-    - is [Data Analysis](class_name) a class?
-    - hey is [Social preferences](class_name) a class?
-    - are [CACI](class_name) and [Data Analysis](class_name) classes?
-    - are [APA](class_name), [Social preferences](class_name) and [CACI](class_name) classes?
+    - What time does the [lecture](pizza_type) [APA](pizza_size) start?
+    - When does the [exercise](pizza_type) [Information Systems](pizza_size) start?
+    - When is the [seminar](pizza_type) [Social preferences](pizza_size) taking place?
+    - When does the [lecture](pizza_type) [CACI](pizza_size) start?
+    - [lecture](pizza_type)
+    - [l](pizza_type)
+    - [vl](pizza_type)
+    - [vorlesung](pizza_type)
+    - [lect](pizza_type)
+    - [exercise](pizza_type)
+    - [ex](pizza_type)
+    - [ü](pizza_type)
+    - [Übung](pizza_type)
+    - [seminar](pizza_type)
+    - [s](pizza_type)
+    - [sem](pizza_type)
+    - [Seminar](pizza_type)
+#- intent: nlu_fallback
+#  examples: |
+#    - [lecture]{"entity": "class", "role": "class_type"}
+#- intent: start_time_lecture
+#  examples: |
+#    - [lecture]{"entity": "class", "role": "class_type"}
 
-- intent: lecturer
+- synonym: bads
   examples: |
-    - Lecturer [CACI](class_name)
-    - Who is the lecturer for the class [Social preferences](class_name)?
-    - [Information Systems](class_name) professor
-    - Who is teaching [Data Analysis](class_name)?
-    - Who teaches [BADS](class_name) class?
-    - Who is the lecturer of [Social preferences](class_name)
-
+    - BADS
+    - Business Analytics and Data Science
+- synonym: IS
+  examples: |
+    - Information systems
+    - Information system
+    - IS
 - lookup: class_name
   examples: |
     - Information Systems
@@ -150,11 +177,8 @@ nlu:
     - Spanish B1
     - CACI
     - APA
-
 - lookup: class_type
   examples: |
     - lecture
     - exercise
     - seminar
-
-
