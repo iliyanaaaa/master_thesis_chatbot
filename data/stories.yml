@@ -227,6 +227,29 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
+- story: interactive_class_story_5
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - action: simple_class_form
+  - slot_was_set:
+      - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
 
 #- story: start time lecture
 #  steps:

@@ -19,7 +19,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
@@ -29,7 +29,7 @@ import psycopg2
 import pandas as pd
 import Levenshtein
 
-from actions.sql_queries import get_class_start_time
+from actions.sql_queries import get_class_start_time, get_available_class_types_by_class_name
 
 USER = 'dev_iliyana'
 PASSWORD = 'password'
@@ -129,6 +129,45 @@ class ValidateSimpleClassForm(FormValidationAction):
         dispatcher.utter_message(text=f"The {class_type} {class_name} starts at {df.iloc[0]['b']} am.")
         return {"class_type": class_type}
 
+
+class AskForVegetarianAction(Action):
+    def name(self) -> Text:
+        return "action_ask_vegetarian"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        dispatcher.utter_message(
+            text="Would you like to order a vegetarian pizza?",
+            buttons=[
+                {"title": "yes", "payload": "/affirm"},
+                {"title": "no", "payload": "/deny"},
+            ],
+        )
+        return []
+
+
+class AskForClassTypeAction(Action):
+    def name(self) -> Text:
+        return "action_ask_class_type"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        class_name = tracker.get_slot('class_name')
+        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name % class_name, con=SQA_CONN_PUB)
+        available_class_types = df_available_class_types['class_type'].values.tolist()
+        if len(available_class_types) > 1:
+            dispatcher.utter_message(
+                text=f"Which kind of class?",
+                buttons=[{"title": p, "payload": p} for p in available_class_types],
+            )
+        elif len(available_class_types) == 1:
+            # todo: Slot is set, but what is the intent or action?
+            dispatcher.utter_message(
+                text=f"Information about {available_class_types[0]} {class_name} is being loaded.")
+            return [SlotSet('class_type', available_class_types[0])]
+        return []
 
 # class ActionGetStartTime(FormAction):
 #     def name(self) -> Text:

@@ -19,6 +19,7 @@ intents:
   - ask_class_start_time
   - stop
   - affirm
+  - deny
 
 entities:
 #  - class:
@@ -39,6 +40,8 @@ actions:
   - utter_ask_continue
 #  - validate_simple_start_time_form
   - validate_simple_class_form
+  - action_ask_vegetarian
+  - action_ask_class_type
 
 #  - action_get_start_time_lecture
 
@@ -120,12 +123,25 @@ slots:
     mappings:
     - type: from_entity
       entity: class_name
+#      conditions:
+#        - active_loop: simple_class_form
+#          requested_slot: class_name
   class_type:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
       entity: class_type
+  vegetarian:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        value: true
+        intent: affirm
+      - type: from_intent
+        value: false
+        intent: deny
 
 forms:
 #  simple_start_time_form:
@@ -136,7 +152,6 @@ forms:
     required_slots:
       - class_name
       - class_type
-
 
 session_config:
   session_expiration_time: 60
