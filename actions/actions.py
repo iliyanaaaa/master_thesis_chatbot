@@ -27,6 +27,9 @@ from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 import sqlalchemy
 import psycopg2
 import pandas as pd
+import Levenshtein
+
+from actions.sql_queries import get_class_start_time
 
 USER = 'dev_iliyana'
 PASSWORD = 'password'
@@ -47,10 +50,12 @@ PSY_CONN_PUB = psycopg2.connect(
     password=PASSWORD,
     )
 PSY_CONN_PUB.autocommit = True
-df = pd.read_sql('Select a from test_table', con=SQA_CONN_PUB)
-CLASS_NAMES = df['a'].values.tolist()
-df = pd.read_sql('Select types from class_type', con=SQA_CONN_PUB)
-CLASS_TYPES = df['types'].values.tolist()
+df_class_names = pd.read_sql('Select a from test_table', con=SQA_CONN_PUB)
+CLASS_NAMES = df_class_names['a'].values.tolist()
+df_class_types = pd.read_sql('Select types from class_type', con=SQA_CONN_PUB)
+CLASS_TYPES = df_class_types['types'].values.tolist()
+CLASS_TYPE_MAPPINGS_df = pd.read_sql('Select * from types_of_classes', con=SQA_CONN_PUB)
+# CLASS_TYPE_MAPPINGS = df_class_type_mappings['types'].values.tolist()
 
 
 class ActionCheckExistence(Action):
@@ -73,44 +78,56 @@ class ActionCheckExistence(Action):
         return []
 
 
-ALLOWED_PIZZA_SIZES = ["small", "medium", "large", "extra-large", "extra large", "s", "m", "l", "xl"]
-ALLOWED_PIZZA_TYPES = ["mozzarella", "fungi", "veggie", "pepperoni", "hawaii"]
-
-
-class ValidateSimplePizzaForm(FormValidationAction):
+class ValidateSimpleClassForm(FormValidationAction):
     def name(self) -> Text:
-        return "validate_simple_pizza_form"
+        return "validate_simple_class_form"
 
-    def validate_pizza_size(
+    def validate_class_name(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        """Validate `pizza_size` value."""
+        """Validate `class_name` value."""
 
         if slot_value not in CLASS_NAMES:
-            dispatcher.utter_message(text=f"I don't recognize this class name. Could you try again please?")
-            return {"pizza_size": None}
-        # dispatcher.utter_message(text=f"OK! You want to have a {slot_value} pizza.")
-        return {"pizza_size": slot_value}
+            similarity_perc = [Levenshtein.jaro(slot_value.lower(), s.lower()) for s in CLASS_NAMES]
+            if max(similarity_perc) < 0.7:
+                dispatcher.utter_message(text=f"I don't recognize this class name. Could you try again please?")
+                return {"class_name": None}
+            else:
+                most_similar_index = similarity_perc.index(max(similarity_perc))
+                slot_value = CLASS_NAMES[most_similar_index]
+                return {"class_name": slot_value}
+        return {"class_name": slot_value}
 
-    def validate_pizza_type(
+    def validate_class_type(
         self,
-        slot_value: Any,
+        class_type: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        """Validate `pizza_type` value."""
-        class_name = tracker.get_slot('pizza_size')
-        if slot_value not in CLASS_TYPES:
-            dispatcher.utter_message(text=f"I don't recognize that class type. You could choose from "
-                                          f"lecture/exercise/seminar")
-            return {"pizza_type": None}
-        dispatcher.utter_message(text=f"The {slot_value} {class_name} starts at 10 am.")
-        return {"pizza_type": slot_value}
+        """Validate `class_type` value."""
+        class_name = tracker.get_slot('class_name')
+        if class_type not in CLASS_TYPES:
+            similarity_perc = [Levenshtein.jaro(class_type.lower(), s.lower()) for s in CLASS_TYPES]
+            if max(similarity_perc) < 0.7:
+                dispatcher.utter_message(text=f"I don't recognize that class type. You could choose from "
+                                              f"lecture/exercise/seminar")
+                return {"class_type": None}
+            else:
+                most_similar_index = similarity_perc.index(max(similarity_perc))
+                class_type = CLASS_TYPES[most_similar_index]
+        if class_type not in ['lecture', 'exercise', 'seminar']:
+            class_type = CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type]['class_type'].values.tolist()[0]
+        df = pd.read_sql(get_class_start_time % (class_name, class_type), con=SQA_CONN_PUB)
+        if df.empty:
+            dispatcher.utter_message(text=f"I'm sorry. There is no data about the {class_type} {class_name}")
+            return {"class_type": None}
+        dispatcher.utter_message(text=f"The {class_type} {class_name} starts at {df.iloc[0]['b']} am.")
+        return {"class_type": class_type}
 
 
 # class ActionGetStartTime(FormAction):
@@ -129,20 +146,6 @@ class ValidateSimplePizzaForm(FormValidationAction):
 #
 #         dispatcher.utter_message(template="utter_submit")
 #         return []
-
-class ValidateRestaurantForm(FormValidationAction):
-    def name(self) -> Text:
-        return "validate_simple_start_time_form"
-
-    def validate_class_type(
-        self, slot_value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        if slot_value not in CLASS_TYPES:
-            dispatcher.utter_message(text=f"There is no {slot_value} for this class.")
-            return {'class_type': None}
-        dispatcher.utter_message(text=f"Ok. You want to know about the  {slot_value}.")
-
-        return {"class_type": slot_value}
 
 
 class ActionGetStartTime(Action):

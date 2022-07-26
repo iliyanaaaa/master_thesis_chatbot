@@ -31,9 +31,9 @@ stories:
 
 - story: interactive_story
   steps:
-  - intent: start_time
-  - action: simple_start_time_form
-  - active_loop: simple_start_time_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
     - requested_slot: class_name
   - slot_was_set:
@@ -45,16 +45,16 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: utter_submit
-  - action: utter_class_slots
+#  - action: utter_submit
+#  - action: utter_class_slots
   - intent: goodbye
   - action: utter_goodbye
 
 - story: interactive_story_1
   steps:
-  - intent: start_time
-  - action: simple_start_time_form
-  - active_loop: simple_start_time_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
     - requested_slot: class_name
   - slot_was_set:
@@ -82,17 +82,17 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: utter_submit
-  - action: utter_class_slots
+#  - action: utter_submit
+#  - action: utter_class_slots
   - intent: goodbye
   - action: utter_goodbye
 
 
 - story: interactive_story_2
   steps:
-  - intent: start_time
-  - action: simple_start_time_form
-  - active_loop: simple_start_time_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
     - requested_slot: class_name
   - intent: stop
@@ -107,9 +107,9 @@ stories:
 
 - story: interactive_story_3
   steps:
-  - intent: start_time
-  - action: simple_start_time_form
-  - active_loop: simple_start_time_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
     - requested_slot: class_name
   - slot_was_set:
@@ -129,52 +129,52 @@ stories:
   - action: utter_goodbye
 
 
-- story: interactive_pizza_story_1
+- story: interactive_class_story_1
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
-    - requested_slot: pizza_size
+    - requested_slot: class_name
   - slot_was_set:
-    - pizza_size: large
+    - class_name: large
   - slot_was_set:
-    - pizza_size: large
+    - class_name: large
   - slot_was_set:
-    - requested_slot: pizza_type
+    - requested_slot: class_type
   - slot_was_set:
-    - pizza_type: hawaiii
+    - class_type: hawaiii
   - slot_was_set:
-    - pizza_type: null
+    - class_type: null
   - slot_was_set:
-    - requested_slot: pizza_type
+    - requested_slot: class_type
   - slot_was_set:
-    - pizza_type: hawai
+    - class_type: hawai
   - slot_was_set:
-    - pizza_type: null
+    - class_type: null
   - slot_was_set:
-    - requested_slot: pizza_type
+    - requested_slot: class_type
   - slot_was_set:
-    - pizza_type: hawaii
+    - class_type: hawaii
   - slot_was_set:
-    - pizza_type: hawaii
+    - class_type: hawaii
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: utter_submit
-  - action: utter_pizza_slots
+#  - action: utter_submit
+#  - action: utter_class_slots
   - intent: goodbye
   - action: utter_goodbye
 
-- story: User interrupts the pizza form and doesn't want to continue
+- story: User interrupts the class form and doesn't want to continue
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - intent: stop
   - action: utter_ask_continue
   - or:
@@ -183,15 +183,15 @@ stories:
   - action: action_deactivate_loop
   - active_loop: null
 
-- story: interactive_pizza_story_2
+- story: interactive_class_story_2
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
-    - requested_slot: pizza_size
+    - requested_slot: class_name
   - intent: stop
   - action: utter_ask_continue
   - intent: stop
@@ -202,21 +202,21 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_pizza_story_3
+- story: interactive_class_story_3
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
+  - intent: ask_class_start_time
+  - action: simple_class_form
+  - active_loop: simple_class_form
   - slot_was_set:
-    - requested_slot: pizza_size
+    - requested_slot: class_name
   - slot_was_set:
-    - pizza_size: s
+    - class_name: s
   - slot_was_set:
-    - pizza_size: s
+    - class_name: s
   - slot_was_set:
-    - requested_slot: pizza_type
+    - requested_slot: class_type
   - intent: stop
   - action: utter_ask_continue
   - intent: affirm

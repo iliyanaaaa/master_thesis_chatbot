@@ -121,36 +121,51 @@ nlu:
     - please stop
     - i want to stop
     - stop the form
-- intent: buy_pizza
+- intent: ask_class_start_time
   examples: |
-    - What time does [APA](pizza_size) start?
-    - What time does [BADS](pizza_size) start?
-    - What time does [Business Analytics and Data Science](pizza_size) start?
-    - When does [Information Systems](pizza_size) start?
-    - When is [Social preferences](pizza_size) taking place?
-    - When does the class [CACI](pizza_size) start?
-    - What time does [APA](pizza_size) start?
-    - what time does [BADS](pizza_size) start?
-    - what time does [APa](pizza_size) start?
+    - What time does [APA](class_name) start?
+    - What time does [BADS](class_name) start?
+    - What time does [Business Analytics and Data Science](class_name) start?
+    - When does [Information Systems](class_name) start?
+    - When is [Social preferences](class_name) taking place?
+    - When does the class [CACI](class_name) start?
+    - What time does [APA](class_name) start?
+    - what time does [BADS](class_name) start?
+    - what time does [APa](class_name) start?
+    - What time does the [lecture](class_type) [APA](class_name) start?
+    - What time does the [exercise](class_type) [BADS](class_name) start?
+    - What time does the [exercise](class_type) [Social preferences](class_name) start?
+    - When does the [exercise](class_type) [Information Systems](class_name) start?
+    - When does the [seminar](class_type) [APA](class_name) start?
+    - When does the [seminar](class_type) [BADS](class_name) start?
+    - When is the [seminar](class_type) [Social preferences](class_name) taking place?
+    - When is the [lecture](class_type) [Information Systems](class_name) taking place?
+    - When is the [lecture](class_type) [BADS](class_name) taking place?
+    - When does the [lecture](class_type) [CACI](class_name) start?
+    - When does the [seminar](class_type) [CACI](class_name) start?
+    - When does the [Information Systems](class_name) [exercise](class_type) start?
+    - When does the [APA](class_name) [seminar](class_type) start?
+    - When does the [BADS](class_name) [seminar](class_type) start?
+    - When is the [Social preferences](class_name) [seminar](class_type) taking place?
+    - When is the [Information Systems](class_name) [lecture](class_type) taking place?
+    - When is the [BADS](class_name) [lecture](class_type) taking place?
+    - When does the [CACI](class_name) [lecture](class_type) start?
+    - When does the [CACI](class_name) [seminar](class_type) start?
 - intent: inform
   examples: |
-    - What time does the [lecture](pizza_type) [APA](pizza_size) start?
-    - When does the [exercise](pizza_type) [Information Systems](pizza_size) start?
-    - When is the [seminar](pizza_type) [Social preferences](pizza_size) taking place?
-    - When does the [lecture](pizza_type) [CACI](pizza_size) start?
-    - [lecture](pizza_type)
-    - [l](pizza_type)
-    - [vl](pizza_type)
-    - [vorlesung](pizza_type)
-    - [lect](pizza_type)
-    - [exercise](pizza_type)
-    - [ex](pizza_type)
-    - [ü](pizza_type)
-    - [Übung](pizza_type)
-    - [seminar](pizza_type)
-    - [s](pizza_type)
-    - [sem](pizza_type)
-    - [Seminar](pizza_type)
+    - [lecture](class_type)
+    - [l](class_type)
+    - [vl](class_type)
+    - [vorlesung](class_type)
+    - [lect](class_type)
+    - [exercise](class_type)
+    - [ex](class_type)
+    - [ü](class_type)
+    - [Übung](class_type)
+    - [seminar](class_type)
+    - [s](class_type)
+    - [sem](class_type)
+    - [Seminar](class_type)
 #- intent: nlu_fallback
 #  examples: |
 #    - [lecture]{"entity": "class", "role": "class_type"}
@@ -182,3 +197,16 @@ nlu:
     - lecture
     - exercise
     - seminar
+    - l
+    - vl
+    - VL
+    - vorlesung
+    - Vorlesung
+    - lect
+    - ex
+    - ü
+    - übung
+    - Übung
+    - s
+    - sem
+    - Seminar

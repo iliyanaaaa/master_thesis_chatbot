@@ -19,23 +19,15 @@ rules:
 
 - rule: activate start time form
   steps:
-    - intent: start_time
-    - action: simple_start_time_form
-    - active_loop: simple_start_time_form
+    - intent: ask_class_start_time
+    - action: simple_class_form
+    - active_loop: simple_class_form
 
 - rule: submit start time form
   condition:
-  - active_loop: simple_start_time_form
+  - active_loop: simple_class_form
   steps:
-  - action: simple_start_time_form
+  - action: simple_class_form
   - active_loop: null
   - slot_was_set:
       - requested_slot: null
-  - action: utter_submit
-  - action: utter_class_slots
-
-
-#- rule: Ask for the class type if not specified
-#  steps:
-#    - intent: start_time_without_class_type
-#    - action: action_get_start_time_without_class_type

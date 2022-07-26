@@ -16,7 +16,7 @@ intents:
   - start_time_seminar
 #  - inform_class_type
   - inform
-  - buy_pizza
+  - ask_class_start_time
   - stop
   - affirm
 
@@ -25,8 +25,6 @@ entities:
 #      roles:
   - class_name
   - class_type
-  - pizza_size
-  - pizza_type
 
 actions:
   - utter_greet
@@ -39,9 +37,8 @@ actions:
   - utter_submit
   - utter_class_slots
   - utter_ask_continue
-  - utter_pizza_slots
-  - validate_simple_start_time_form
-  - validate_simple_pizza_form
+#  - validate_simple_start_time_form
+  - validate_simple_class_form
 
 #  - action_get_start_time_lecture
 
@@ -72,80 +69,74 @@ responses:
     - text: "I am going to check for the {class_type} of your choice!"
 #  utter_submit:
 #    - text: "All done!"
-  utter_ask_class_type:
-    - text: "Which class type do you mean?"
   utter_class_slots:
     - text: "I will check for {class_type} {class_name}."
   utter_ask_continue:
     - text: "Are you sure you want to stop the form?"
   utter_submit:
   - text: "I will now check!"
-  utter_pizza_slots:
-  - text: "I will check for {pizza_type} {pizza_size} ."
-  utter_ask_pizza_size:
+  utter_ask_class_name:
   - text: "I'm sorry, I didn't catch the name of the class. Could you write it down please?"
-  utter_ask_pizza_type:
+  utter_ask_class_type:
   - text: "Do you wanna know about the lecture, exercise or seminar?"
 
 slots:
+#  class_name:
+#    type: text # only the presence or absence of this slot will have influence on the conversation
+#    # other available types:
+#    #   boolean # true or false (ex. valid ID) the value will influence the conversation
+#    #   float
+#    #     min_value: 0
+#    #     max_value: 100
+#    #     initial_value: 100
+#    #   list # only the presence or absence of this slot will have influence on the conversation
+#    #   any # will never have any influence on the conversation (only used to store values)
+#    #   categorical # the value will influence the conversation
+#    #    values:
+#    #      - low
+#    #      - medium
+#    #      - high
+#    influence_conversation: true
+#    mappings:
+#    - type: from_entity    # from_text, from_intent, from_trigger_intent, custom
+#      entity: class_name
+##      role: class_name
+#      conditions:
+#        - active_loop: get_start_time_form
+#  class_type:
+#    type: text
+#    influence_conversation: true
+#    mappings:
+#    - type: from_entity
+#      entity: class_type
+##      intent: start_time # would be triggered ONLY with this intent
+##      not_intent: start_time # would NOT be triggered with this intent
+##      role: class_type # only applies the mapping if the extracted entity has this role
+#      conditions:
+#        - active_loop: get_start_time_form
   class_name:
-    type: text # only the presence or absence of this slot will have influence on the conversation
-    # other available types:
-    #   boolean # true or false (ex. valid ID) the value will influence the conversation
-    #   float
-    #     min_value: 0
-    #     max_value: 100
-    #     initial_value: 100
-    #   list # only the presence or absence of this slot will have influence on the conversation
-    #   any # will never have any influence on the conversation (only used to store values)
-    #   categorical # the value will influence the conversation
-    #    values:
-    #      - low
-    #      - medium
-    #      - high
+    type: text
     influence_conversation: true
     mappings:
-    - type: from_entity    # from_text, from_intent, from_trigger_intent, custom
+    - type: from_entity
       entity: class_name
-#      role: class_name
-      conditions:
-        - active_loop: get_start_time_form
   class_type:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
       entity: class_type
-#      intent: start_time # would be triggered ONLY with this intent
-#      not_intent: start_time # would NOT be triggered with this intent
-#      role: class_type # only applies the mapping if the extracted entity has this role
-      conditions:
-        - active_loop: get_start_time_form
-  pizza_size:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pizza_size
-  pizza_type:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pizza_type
 
 forms:
-  simple_start_time_form:
+#  simple_start_time_form:
+#    required_slots:
+#      - class_name
+#      - class_type
+  simple_class_form:
     required_slots:
       - class_name
       - class_type
-  simple_pizza_form:
-    required_slots:
-      - pizza_size
-      - pizza_type
-#  get_start_time_form:
-#    required_slots:
-#        - class_type
+
 
 session_config:
   session_expiration_time: 60
