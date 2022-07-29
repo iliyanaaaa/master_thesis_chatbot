@@ -24,36 +24,17 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 
-import sqlalchemy
-import psycopg2
 import pandas as pd
 import Levenshtein
 
-from actions.sql_queries import get_class_start_time, get_available_class_types_by_class_name
+from actions.db_connections import PSY_CONN_PUB, SQA_CONN_PUB
+from actions.sql_queries import get_class_start_time, get_available_class_types_by_class_name, get_all_classes_info
 
-USER = 'dev_iliyana'
-PASSWORD = 'password'
-SERVER = 'localhost'
-PORT = '5432'
-DATABASE = 'hislsf_chatbot_export'
-SQA_CONN_STR = f"postgresql://{USER}:{PASSWORD}@{SERVER}:{PORT}/{DATABASE}"
-
-SQA_CONN_PUB_ENGINE = sqlalchemy.create_engine(SQA_CONN_STR,
-                                               connect_args={'options': '-csearch_path=public'})
-SQA_CONN_PUB = SQA_CONN_PUB_ENGINE.connect()
-
-PSY_CONN_PUB = psycopg2.connect(
-    host=SERVER,
-    port=PORT,
-    database=DATABASE,
-    user=USER,
-    password=PASSWORD,
-    )
 PSY_CONN_PUB.autocommit = True
-df_class_names = pd.read_sql('Select a from test_table', con=SQA_CONN_PUB)
-CLASS_NAMES = df_class_names['a'].values.tolist()
-df_class_types = pd.read_sql('Select types from class_type', con=SQA_CONN_PUB)
-CLASS_TYPES = df_class_types['types'].values.tolist()
+df_class_names = pd.read_sql(get_all_classes_info, con=SQA_CONN_PUB)
+CLASS_NAMES = df_class_names['class_name'].values.tolist()
+df_class_types = pd.read_sql(get_all_classes_info, con=SQA_CONN_PUB)
+CLASS_TYPES = df_class_types['class_type'].values.tolist()
 CLASS_TYPE_MAPPINGS_df = pd.read_sql('Select * from types_of_classes', con=SQA_CONN_PUB)
 # CLASS_TYPE_MAPPINGS = df_class_type_mappings['types'].values.tolist()
 
@@ -126,7 +107,12 @@ class ValidateSimpleClassForm(FormValidationAction):
         if df.empty:
             dispatcher.utter_message(text=f"I'm sorry. There is no data about the {class_type} {class_name}")
             return {"class_type": None}
-        dispatcher.utter_message(text=f"The {class_type} {class_name} starts at {df.iloc[0]['b']} am.")
+        message = ''
+        # if len(df) > 1:
+        for i, row in df.iterrows():
+            if row['week_day'] is not None:
+                message += f"The {class_type} {class_name} starts at {row['start_time']} on {row['week_day']}."
+        dispatcher.utter_message(text=message)
         return {"class_type": class_type}
 
 

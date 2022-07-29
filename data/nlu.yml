@@ -126,31 +126,31 @@ nlu:
     - What time does [APA](class_name) start?
     - What time does [BADS](class_name) start?
     - What time does [Business Analytics and Data Science](class_name) start?
-    - When does [Information Systems](class_name) start?
+    - When does [Research Practice](class_name) start?
     - When is [Social preferences](class_name) taking place?
-    - When does the class [CACI](class_name) start?
+    - When does the class [VL Grundlagen der Fachdidaktik - Grundschule](class_name) start?
     - What time does [APA](class_name) start?
     - what time does [BADS](class_name) start?
-    - what time does [APa](class_name) start?
+    - what time does [Zahlentheorie](class_name) start?
     - What time does the [lecture](class_type) [APA](class_name) start?
     - What time does the [exercise](class_type) [BADS](class_name) start?
-    - What time does the [exercise](class_type) [Social preferences](class_name) start?
+    - What time does the [exercise](class_type) [Zahlentheorie](class_name) start?
     - When does the [exercise](class_type) [Information Systems](class_name) start?
     - When does the [seminar](class_type) [APA](class_name) start?
     - When does the [seminar](class_type) [BADS](class_name) start?
     - When is the [seminar](class_type) [Social preferences](class_name) taking place?
     - When is the [lecture](class_type) [Information Systems](class_name) taking place?
-    - When is the [lecture](class_type) [BADS](class_name) taking place?
+    - When is the [lecture](class_type) [VL Grundlagen der Fachdidaktik - Grundschule](class_name) taking place?
     - When does the [lecture](class_type) [CACI](class_name) start?
     - When does the [seminar](class_type) [CACI](class_name) start?
     - When does the [Information Systems](class_name) [exercise](class_type) start?
     - When does the [APA](class_name) [seminar](class_type) start?
-    - When does the [BADS](class_name) [seminar](class_type) start?
+    - When does the [Einführung in das Politische System der Bundesrepublik Deutschland](class_name) [seminar](class_type) start?
     - When is the [Social preferences](class_name) [seminar](class_type) taking place?
-    - When is the [Information Systems](class_name) [lecture](class_type) taking place?
+    - When is the [Pedagogic Grammar](class_name) [lecture](class_type) taking place?
     - When is the [BADS](class_name) [lecture](class_type) taking place?
-    - When does the [CACI](class_name) [lecture](class_type) start?
-    - When does the [CACI](class_name) [seminar](class_type) start?
+    - When does the [VL Grundlagen der Fachdidaktik - Grundschule](class_name) [lecture](class_type) start?
+    - When does the [Zahlentheorie](class_name) [seminar](class_type) start?
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -210,3 +210,31 @@ nlu:
     - s
     - sem
     - Seminar
+- lookup: class_name
+  examples: |
+    - CACI
+    - BADS
+    - APA
+    - Business Analytics
+    - Social preferences
+    - Analysis II (ÜWP)
+    - Analysis II*
+    - Arithmetische Geometrie (M6)
+    - Einführung in das Politische System der Bundesrepublik Deutschland
+    - Einführung in die skandinavistische Sprachwissenschaft
+    - Grammaire et traduction
+    - Happily ever after. Erzählungen von Ehe zwischen Gefühl und Kalkül
+    - Italiam! Italiam! &#8211; Italien in der französischen Literatur
+    - Mapping social inequalities: Introduction to GIS software and spatial data (ÜWP)
+    - Ökologie für Vollmodul Bio10 V
+    - Pedagogic Grammar
+    - Produzione scritta: Vorbereitung auf den MAP-Aufsatz
+    - Psychiatrische Narrative und Schreibweisen
+    - Research Practice
+    - Russisch: Diskussions- und Schreibkurs (für Nichtmuttersprachler*innen)
+    - Textproduktion: Språk i kontext
+    - The Interwar Years: Democracy, Politics and Gender
+    - VL Grundlagen der Fachdidaktik - Grundschule
+    - Vorbereitung des berufsfelderschließenden Praktikums:Bildungseinstellungen und Bildungserfolge
+    - Written Academic Discourse: Writing and Revising the Essay
+    - Zahlentheorie
