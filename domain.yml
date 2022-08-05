@@ -17,6 +17,7 @@ intents:
 #  - inform_class_type
   - inform
   - ask_class_start_time
+  - ask_class_lecturer
   - stop
   - affirm
   - deny
@@ -34,7 +35,6 @@ actions:
   - action_get_moodle_link
   - action_check_existence
   - action_lecturer
-  - action_get_start_time_with_class_type
   - utter_submit
   - utter_class_slots
   - utter_ask_continue

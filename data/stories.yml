@@ -26,10 +26,8 @@ stories:
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-#  - intent: deny
-#  - action: utter_goodbye
 
-- story: interactive_story
+- story: interactive_start_time_story_1
   steps:
   - intent: ask_class_start_time
   - action: simple_class_form
@@ -37,99 +35,18 @@ stories:
   - slot_was_set:
     - requested_slot: class_name
   - slot_was_set:
-    - requested_slot: class_type
-  - slot_was_set:
-    - class_type: lecture
-  - slot_was_set:
-    - class_type: lecture
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-#  - action: utter_submit
-#  - action: utter_class_slots
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: interactive_story_1
-  steps:
-  - intent: ask_class_start_time
-  - action: simple_class_form
-  - active_loop: simple_class_form
-  - slot_was_set:
-    - requested_slot: class_name
-  - slot_was_set:
-    - class_name: APA
-  - slot_was_set:
-    - class_name: APA
-  - slot_was_set:
-    - requested_slot: class_type
-  - slot_was_set:
-    - class_type: lecute
-  - slot_was_set:
-    - class_type: null
-  - slot_was_set:
-    - requested_slot: class_type
-  - slot_was_set:
-    - class_type: lecurte
-  - slot_was_set:
-    - class_type: null
+    - class_name: Zahlentheorie
   - slot_was_set:
     - requested_slot: class_type
   - slot_was_set:
     - class_type: lecture
   - slot_was_set:
-    - class_type: lecture
-  - slot_was_set:
     - requested_slot: null
   - active_loop: null
-#  - action: utter_submit
-#  - action: utter_class_slots
-  - intent: goodbye
-  - action: utter_goodbye
+  - action: action_get_start_time
 
 
-- story: interactive_story_2
-  steps:
-  - intent: ask_class_start_time
-  - action: simple_class_form
-  - active_loop: simple_class_form
-  - slot_was_set:
-    - requested_slot: class_name
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: stop
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: interactive_story_3
-  steps:
-  - intent: ask_class_start_time
-  - action: simple_class_form
-  - active_loop: simple_class_form
-  - slot_was_set:
-    - requested_slot: class_name
-  - slot_was_set:
-    - class_name: CACI
-  - slot_was_set:
-    - class_name: CACI
-  - slot_was_set:
-    - requested_slot: class_type
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - intent: goodbye
-  - action: utter_goodbye
-
-
-- story: interactive_class_story_1
+- story: interactive_class_start_time_story_1
   steps:
   - intent: greet
   - action: utter_greet
@@ -139,36 +56,33 @@ stories:
   - slot_was_set:
     - requested_slot: class_name
   - slot_was_set:
-    - class_name: large
+    - class_name: ADAMS
   - slot_was_set:
-    - class_name: large
+    - class_name: ADAMS
   - slot_was_set:
     - requested_slot: class_type
   - slot_was_set:
-    - class_type: hawaiii
+    - class_type: lecture
   - slot_was_set:
     - class_type: null
   - slot_was_set:
     - requested_slot: class_type
   - slot_was_set:
-    - class_type: hawai
+    - class_type: lecture
   - slot_was_set:
     - class_type: null
   - slot_was_set:
     - requested_slot: class_type
   - slot_was_set:
-    - class_type: hawaii
+    - class_type: lecture
   - slot_was_set:
-    - class_type: hawaii
+    - class_type: lecture
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-#  - action: utter_submit
-#  - action: utter_class_slots
-  - intent: goodbye
-  - action: utter_goodbye
+  - action: action_get_start_time
 
-- story: User interrupts the class form and doesn't want to continue
+- story: User interrupts the start time form and doesn't want to continue
   steps:
   - intent: greet
   - action: utter_greet
@@ -183,7 +97,7 @@ stories:
   - action: action_deactivate_loop
   - active_loop: null
 
-- story: interactive_class_story_2
+- story: interactive_class_start_time_story_2
   steps:
   - intent: greet
   - action: utter_greet
@@ -202,7 +116,7 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_class_story_3
+- story: interactive_class_start_time_story_3
   steps:
   - intent: greet
   - action: utter_greet
@@ -227,7 +141,7 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_class_story_5
+- story: interactive_class_start_time_story_4
   steps:
   - intent: greet
   - action: utter_greet
@@ -250,6 +164,76 @@ stories:
     - requested_slot: null
   - intent: goodbye
   - action: utter_goodbye
+
+
+- story: interactive_class_lecturer_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_lecturer
+  - action: simple_class_form
+  - active_loop: simple_class_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_start_time
+
+- story: interactive_class_lecturer_story_2
+  steps:
+  - intent: ask_class_lecturer
+  - action: simple_class_form
+  - active_loop: simple_class_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User interrupts the lecturer form and doesn't want to continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_lecturer
+  - action: simple_class_form
+  - active_loop: simple_class_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
 
 #- story: start time lecture
 #  steps:

@@ -151,6 +151,74 @@ nlu:
     - When is the [BADS](class_name) [lecture](class_type) taking place?
     - When does the [VL Grundlagen der Fachdidaktik - Grundschule](class_name) [lecture](class_type) start?
     - When does the [Zahlentheorie](class_name) [seminar](class_type) start?
+    - Start time [information systems](class_name) [seminar](class_type)
+    - Start time [Statistik](class_name)?
+    - start time [Humanbiologie](class_name) [exercise](class_type)
+    - start time [seminar](class_type) [English Syntax](class_name)
+    - Starttime [English Syntax](class_name)
+    - start of [Accounting Theory and Earnings Management](class_name)
+    - [Tekstresepsjon](class_name) [seminar](class_type) start time
+    - [ADAMS](class_name) start time
+    - [IS](class_name) [lecture](class_type) start time
+    - What time does [IS](class_name) class starts?
+    - What time does the [Litauisch](class_name) [language course](class_type) start?
+    - What is the start of [lecture](class_type) [Zahlentheorie](class_name)?
+    - When does the course [Topologie I](class_name) start?
+    - When does the [Semantik](class_name) [lecture](class_type) start?
+    - when does [Urban Theory](class_name) begin?
+    - when does the [exercise](class_type) of [Grpße Spiele](class_name) begin?
+    - When the [lecture](class_type) [Zahlentheorie](class_name) starts?
+    - [Seminar](class_type) [Game Theory](class_name) starting time
+    - Wann fängt [Stochastik I](class_name) an
+    - Wann beginnt die [Vorlesung](class_type) [Wissen und seine Ressourcen](class_name)?
+    - At which time does [Statistik II](class_name) start
+    - At what time does the [lecture](class_type) start? 
+    - At what time does the [exercise](class_type) [Mathematik II](class_type) start
+    - At what hour of the day does [IS](class_name) start?
+- intent: ask_class_lecturer
+  examples: |
+    - lecturer?
+    - Lecturer [information systems](class_name) [seminar](class_type)
+    - lecturer [language class](class_type) [Finnisch 2](class_name)
+    - Lecturer [Statistik](class_name)
+    - lecturer [Accouting Theory and Earnings Management](class_name)
+    - lecturer of [Semantik](class_name)
+    - [Schreiblabor](class_name) lecturer?
+    - [Frankophonie](class_name) [lecture](class_type lecturer?
+    - [Business Analytics](class_name) professor
+    - Professor [Happily ever after. Erzählungen von Ehe zwischen Gefühl und Kalkül](class_name)
+    - Professor [Information Systems](class_name)
+    - [Research Practice](class_name) [Seminar](class_type) prof 
+    - [Written Academic Discourse: Writing and Revising the Essay](class_name) [seminar](class_type) lecturer
+    - Who is the lecturer for the class [behavioural economics](class_name)?
+    - Who is the lecturer for the [lecutre](class_type) [behavioural economics](class_name)?
+    - Who is teaching [information systems](class_name)?
+    - Who's the lecturer of [Frankophonie](class_name)
+    - Who is the lecturer of the [exercise](class_type) [Analysis II](class_name)
+    - Who is the lecturer for [Statistik I](class_name)?
+    - Who's the lecturer for the [Analysis II](class_name) course?
+    - who's the professor of [lecture](class_type) [Pedagogic Grammar](class_name)?
+    - Who's the [Einführung in die skandinavistische Sprachwissenschaft](class_name) lecturer?
+    - Who is the lecutere for [English Syntax](class_name)?
+    - Who holds the [exercise](class_type) [behavioural economics](class_name)?
+    - Who gives the [lecture](class_name) [Stochastik](class_name)?
+    - Who's teaching [Humanbiologie](class_name)?
+    - Who's teaching the course [IS](class_name)?
+    - Who's teaching the [lecture](class_type) [Große Spiele](class_name)?
+    - Who's teaching the [Bodenprozesse](class_name) [exercise](class_type) ?
+    - Who's teaching the class [Ökologie für Vollmodul Bio10 V](class_name)?
+    - Who teaches [IS](class_name) class?
+    - Who teaches [Morphology](class_name) [seminar](class_type)?
+    - who teaches "[statistics 1](class_name)" [exercise](class_type)?
+    - Who teaches the [Marketing Management](class_name) [lecture](class_type)?
+    - Who teaches [Sanskrit II](class_name) class
+    - Who teaches the [GLUD](class_name) [lecture](class_type) this year?´
+    - who [Mathematik II](class_name) [exercise](class_type)
+    - Who will organise the [lecture](class_type) [Middle English](class_name)?
+    - [Adams](class_name) professor
+    - Wer unterrichtet [Humanbiologie](class_name)
+    - Wer unterrichtet [RNA Biologie](class_name) [vorlesung](class_type)
+    - Wer ist der Professor/die Professorin, der die [Vorlesung](class_type) [Topologie I](class_name) leiten wird?
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -166,6 +234,9 @@ nlu:
     - [s](class_type)
     - [sem](class_type)
     - [Seminar](class_type)
+    - [language course](class_type)
+    - [language class](class_type)
+    - [Sprachkurs](class_type)
 #- intent: nlu_fallback
 #  examples: |
 #    - [lecture]{"entity": "class", "role": "class_type"}
@@ -238,3 +309,35 @@ nlu:
     - Vorbereitung des berufsfelderschließenden Praktikums:Bildungseinstellungen und Bildungserfolge
     - Written Academic Discourse: Writing and Revising the Essay
     - Zahlentheorie
+    - Semantik
+    - Morphologie
+    - Das Wort
+    - Litauisch
+    - Syntax
+    - Statistik I
+    - Urban Theory
+    - Semantics
+    - Mathematik II
+    - Sanskrit II
+    - Analysis II
+    - Stochastik I
+    - Frankophonie
+    - Statistik
+    - Grammatica
+    - Schreiblabor
+    - Bodenprozesse
+    - DMS4_Trend
+    - Große Spiele
+    - Statistik II
+    - Topologie I
+    - Kleine Spiele
+    - Pragmatics
+    - Humanbiologie
+    - Tekstresepsjon
+    - RNA Biologie
+    - Game Theory
+    - English Syntax
+    - Morphology
+    - Tekstreception
+    - Middle English
+    - Analysis II*

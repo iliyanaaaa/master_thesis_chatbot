@@ -23,7 +23,13 @@ rules:
     - action: simple_class_form
     - active_loop: simple_class_form
 
-- rule: submit start time form
+- rule: activate lecturer form
+  steps:
+    - intent: ask_class_lecturer
+    - action: simple_class_form
+    - active_loop: simple_class_form
+
+- rule: submit simple class form
   condition:
   - active_loop: simple_class_form
   steps:
@@ -31,8 +37,9 @@ rules:
   - active_loop: null
   - slot_was_set:
       - requested_slot: null
+  - action: action_get_start_time
 
-- rule: interruption in start time form
+- rule: interruption in simple class form
   condition:
     - active_loop: simple_class_form
   steps:
@@ -40,20 +47,3 @@ rules:
     - action: utter_iamabot
     - action: simple_class_form
     - active_loop: simple_class_form
-
-#- rule: activate fancy class form
-#  steps:
-#    - intent: ask_fancy_class_start_time
-#    - action: fancy_class_form
-#    - active_loop: fancy_class_form
-#
-#- rule: submit fancy start time form
-#  condition:
-#  - active_loop: fancy_class_form
-#  steps:
-#  - action: fancy_class_form
-#  - active_loop: null
-#  - slot_was_set:
-#      - requested_slot: null
-#  - action: utter_submit
-#  - action: utter_class_slots
