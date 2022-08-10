@@ -19,15 +19,15 @@ rules:
 
 - rule: activate start time form
   steps:
-    - intent: ask_class_start_time
+    - intent: ask_class_start_time OR ask_class_lecturer
     - action: simple_class_form
     - active_loop: simple_class_form
 
-- rule: activate lecturer form
-  steps:
-    - intent: ask_class_lecturer
-    - action: simple_class_form
-    - active_loop: simple_class_form
+#- rule: activate lecturer form
+#  steps:
+#    - intent: ask_class_lecturer
+#    - action: lecturer_form
+#    - active_loop: lecturer_form
 
 - rule: submit simple class form
   condition:
@@ -37,7 +37,18 @@ rules:
   - active_loop: null
   - slot_was_set:
       - requested_slot: null
-  - action: action_get_start_time
+  - action: action_get_answer
+  - action: action_restart
+
+#- rule: submit lecturer form
+#  condition:
+#  - active_loop: lecturer_form
+#  steps:
+#  - action: lecturer_form
+#  - active_loop: null
+#  - slot_was_set:
+#      - requested_slot: null
+#  - action: action_get_lecturer
 
 - rule: interruption in simple class form
   condition:

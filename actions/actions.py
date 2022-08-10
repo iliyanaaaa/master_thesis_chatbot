@@ -28,12 +28,13 @@ import pandas as pd
 import Levenshtein
 
 from actions.db_connections import PSY_CONN_PUB, SQA_CONN_PUB
-from actions.sql_queries import get_class_start_time, get_available_class_types_by_class_name, get_all_classes_info
+from actions.sql_queries import get_class_start_time_query, get_available_class_types_by_class_name_query, \
+    get_all_classes_info_query, get_lecturer_query
 
 PSY_CONN_PUB.autocommit = True
-df_class_names = pd.read_sql(get_all_classes_info, con=SQA_CONN_PUB)
+df_class_names = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
 CLASS_NAMES = df_class_names['class_name'].values.tolist()
-df_class_types = pd.read_sql(get_all_classes_info, con=SQA_CONN_PUB)
+df_class_types = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
 CLASS_TYPES = df_class_types['class_type'].values.tolist()
 CLASS_TYPE_MAPPINGS_df = pd.read_sql('Select * from types_of_classes', con=SQA_CONN_PUB)
 
@@ -108,7 +109,7 @@ class ValidateSimpleClassForm(FormValidationAction):
             class_type = \
                 CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type]['class_type'].values.tolist()[
                     0]
-        df = pd.read_sql(get_class_start_time % (class_name, class_type), con=SQA_CONN_PUB)
+        df = pd.read_sql(get_class_start_time_query % (class_name, class_type), con=SQA_CONN_PUB)
         if df.empty:
             dispatcher.utter_message(text=f"I'm sorry. There is no data about the {class_type} {class_name}")
             return {"class_type": None}
@@ -140,7 +141,7 @@ class AskForClassTypeAction(Action):
             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> List[EventType]:
         class_name = tracker.get_slot('class_name')
-        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name % class_name, con=SQA_CONN_PUB)
+        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name_query % class_name, con=SQA_CONN_PUB)
         available_class_types = df_available_class_types['class_type'].values.tolist()
         if len(available_class_types) > 1:
             dispatcher.utter_message(
@@ -149,33 +150,75 @@ class AskForClassTypeAction(Action):
             )
         elif len(available_class_types) == 1:
             # todo: Slot is set, but what is the intent or action?
-            df = pd.read_sql(get_class_start_time % (class_name, available_class_types[0]), con=SQA_CONN_PUB)
-            message = ''
-            for i, row in df.iterrows():
-                if row['week_day'] is not None:
-                    message += f"The {available_class_types[0]} {class_name} starts at {row['start_time']} on {row['week_day']}."
+            class_type = available_class_types[0]
+            message = choose_action(tracker, class_name, class_type)
             dispatcher.utter_message(text=message)
+            # df = pd.read_sql(get_class_start_time_query % (class_name, available_class_types[0]), con=SQA_CONN_PUB)
+            # message = ''
+            # for i, row in df.iterrows():
+            #     if row['week_day'] is not None:
+            #         message += f"The {available_class_types[0]} {class_name} starts at {row['start_time']} \
+            #         on {row['week_day']}."
+            # dispatcher.utter_message(text=message)
             # text=f"Information about {available_class_types[0]} {class_name} is being loaded.")
-            return [SlotSet('class_type', available_class_types[0])]
+            return [SlotSet('class_type', class_type)]
         return []
 
 
-class ActionGetStartTime(Action):
+class ActionGetAnswer(Action):
     def name(self) -> Text:
-        return "action_get_start_time"
+        return "action_get_answer"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         class_name = tracker.get_slot('class_name')
         class_type = tracker.get_slot('class_type')
-        message = ''
-        df = pd.read_sql(get_class_start_time % (class_name, class_type), con=SQA_CONN_PUB)
-        for i, row in df.iterrows():
-            if row['week_day'] is not None:
-                message += f"The {class_type} {class_name} starts at {row['start_time']} on {row['week_day']}."
+        # intent = tracker.latest_message['intent'].get('name')
+        message = choose_action(tracker, class_name, class_type)
         dispatcher.utter_message(text=message)
 
+        return [SlotSet('class_type', None)]
+
+
+def return_class_start_time(class_name, class_type) -> Text:
+    print('start return_class_start_time')
+    message = ''
+    df = pd.read_sql(get_class_start_time_query % (class_name, class_type), con=SQA_CONN_PUB)
+    print(df.head())
+    for i, row in df.iterrows():
+        if row['week_day'] is not None:
+            message += f"The {class_type} {class_name} starts at {row['start_time']} on {row['week_day']}."
+    print('the message is', message)
+    return message
+
+
+def return_class_lecturer(class_name, class_type) -> Text:
+    print('start return_class_lecturer')
+    df = pd.read_sql(get_lecturer_query % (class_name, class_type), con=SQA_CONN_PUB)
+    if not df.empty:
+        message = f"The lecturer of the {class_type} {class_name} is {df.iloc[0]['lecturer']}."
+    else:
+        message = f"I can't find the {class_type} {class_name} in the database."
+    return message
+
+
+def choose_action(tracker, class_name, class_type):
+    reversed_events = list(reversed(tracker.events))
+    intent_name = ''
+    message = ''
+    for event in reversed_events:
+        if 'parse_data' in event.keys():
+            intent_name = event['parse_data']['intent']['name']
+            print(intent_name)
+            if intent_name != 'inform':
+                break
+    print('Outside of for loop, intent is', intent_name)
+    if intent_name == 'ask_class_start_time':
+        message = return_class_start_time(class_name, class_type)
+    elif intent_name == 'ask_class_lecturer':
+        message = return_class_lecturer(class_name, class_type)
+    return message
 
 class ActionGetLecturer(Action):
     def name(self) -> Text:
@@ -193,8 +236,8 @@ class ActionGetLecturer(Action):
             elif blob['entity'] == 'class_name':
                 class_type = blob['class_type']
         if class_name in CLASS_NAMES:
-            df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-            dispatcher.utter_message(text=f"Yes, {class_name} is a class name. Find it under {df.iloc[0]['a']}")
+            df = pd.read_sql(get_lecturer_query, con=SQA_CONN_PUB)
+            dispatcher.utter_message(text=f"The lecturer of the {class_type} {class_name} is {df.iloc[0]['lecturer']}")
         else:
             dispatcher.utter_message(
                 text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")

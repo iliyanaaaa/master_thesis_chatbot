@@ -159,6 +159,7 @@ nlu:
     - start of [Accounting Theory and Earnings Management](class_name)
     - [Tekstresepsjon](class_name) [seminar](class_type) start time
     - [ADAMS](class_name) start time
+    - [Humanbiologie](class_name) start time
     - [IS](class_name) [lecture](class_type) start time
     - What time does [IS](class_name) class starts?
     - What time does the [Litauisch](class_name) [language course](class_type) start?
@@ -216,9 +217,109 @@ nlu:
     - who [Mathematik II](class_name) [exercise](class_type)
     - Who will organise the [lecture](class_type) [Middle English](class_name)?
     - [Adams](class_name) professor
+    - [Morphologie](class_name) teacher
     - Wer unterrichtet [Humanbiologie](class_name)
     - Wer unterrichtet [RNA Biologie](class_name) [vorlesung](class_type)
     - Wer ist der Professor/die Professorin, der die [Vorlesung](class_type) [Topologie I](class_name) leiten wird?
+- intent: ask_which_semester_class_takes_place
+  examples: |
+    - 2022 sose [ADAMS](class_name)
+    - 2022 wise [Analysis I](class_name)
+    - Does the class [behavioural economics](class_name) take place this semester?
+    - Is [Information Systems](class_name) taking place this semester?
+    - Does [Urban Theory](class_name) class takes place in this semester?
+    - Is [Seminar](class_type) [Textproduktion: Språk i kontext](class_name) offered this semester?
+    - Is [VL Grundlagen der Fachdidaktik - Grundschule](class_name) taking place this semester 
+    - [Research Practice](class_name) winter semester or summer semester
+    - Is [Zahlentheorie](class_name) offered in Sose22?
+    - Is there [Business Analytics](class_name) this semester?
+    - Is [seminar](class_type) [Bodenprozesse](class_name) taking place this semester?
+    - Does the [Statistik II](class_name) class take place? 
+    - Is there any [Middle English](class_name) [lecture](class_type) this semester?
+    - [Analysis II](class_name) summer semester? 
+    - [lecture](class_type) [Information Systems](class_name) this semester?
+    - Is class [Game Theory](class_name) available this semester? 
+    - Is the class [Humanbiologie](class_name) available this semester 
+    - SoSe [BADS](class_name)
+    - Is [Social preferences](class_name) available this semester
+    - [Grammaire et traduction](class_name) [Seminar](class_type) Sose 22
+    - Is the class [Pedagogic Grammar](class_name) teached this semester ? 
+    - offer [Accouting Theory and Earnings Management](class_name)
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) this semester
+    - Is class [Morphologie](class_name) taking place this semester?
+    - Does [Mathematik II](class_name) [lecture](class_type) take place in WS or SS?
+    - Is the [Statistik I](class_name) course available this semester?
+    - [Information Systems](class_name) SoSe 22
+    - [Information Systems](class_name) WiSe 22
+    - Is the class [Morphologie](class_name) provided this semester?
+    - is the [Zahlentheorie](class_name) module available
+    - Can I attend [Social preferences](class_name) this semester?
+    - Can i apply for [CACI](class_name) in the SoSe? 
+    - Which semester is [APA](class_name) it taking place?
+    - Is the [GLUD](class_name) [lecture](class_type) offered this year? 
+    - Is the class [Produzione scritta: Vorbereitung auf den MAP-Aufsatz](class_name) happening 
+    - In which semester is [VL Grundlagen der Fachdidaktik - Grundschule](class_name) offered?
+    - does the class [Urban Theory](class_name) take place this semester 
+    - In which semester will [Frankophonie](class_name) take place?
+    - can i take the course [statistics 1](class_name) [lecture](class_type) in summer term 2022?
+    - can i take the course [Urban Theory](class_name) [lecture](class_type) in winter term 2022?
+    - Wird es in diesem Jahr das Seminar [Medien der Logistik](class_name) geben?
+    - Is [Information Systems](class_name) taking place this semester?
+    - Is [Marketing Management](class_name) available for participation in the Sommer 2022 semester?
+    - Is [Mathematik II](class_name) available for participation in the Winter 2022 semester?
+    - is my class [Sanskrit II](class_name) taking place this semester?
+    - semester WS SS [information systems](class_name)
+    - [English Syntax](class_name) taking place?
+- intent: ask_class_location
+  examples: |
+    - Location [information systems](class_name) [seminar](class_type)
+    - Hey, what’s the room number of [lecture](class_type) [Behavioural economics](class_name)?
+    - [Adams](class_name) place
+    - Where are the [information systems](class_name) [lectures](class_type) taking place?
+    - Where does [Tekstresepsjon](class_name) class take place?
+    - Venue for the [lecture](class_type) [Humanbiologie](class_name)
+    - Lecture Room [Written Academic Discourse: Writing and Revising the Essay](class_name)?
+    - Where is the course [Seminar](class_type) [The Interwar Years: Democracy, Politics and Gender](class_name)?
+    - What is the location of [Zahlentheorie](class_name) class?
+    - place of [Frankophonie](class_name) lecture
+    - [Sanskrit II](class_name) location
+    - where [ADAMS](class_name) [exercise](class_type)
+    - room [seminar](class_type) [Urban Theory](class_name)
+    - Wo findet [Mathematik II](class_name) statt
+    - Where is the [Mathematik II](class_name) [lecture](class_type)?
+    - Where is the [Info Systems](class_name) [exercise](class_type) taking place?
+    - room [Semantics](class_name)
+    - [Research Practice](class_name) location
+    - place [lecture](class_type) [The Interwar Years: Democracy, Politics and Gender](class_name) thursday
+    - Where is [Pedagogic Grammar](class_name) going to take place? 
+    - [Zahlentheorie](class_name) which Room?
+    - Which room [Urban Theory](class_name)
+    - Room [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
+    - Where [Research Practice](class_name)
+    - [Morphologie](class_name) [Seminar](class_type) place
+    - Where is the [language course](class_type) [Litauisch](class_name) taking place
+    - place for [Accouting Theory and Earnings Management](class_name)
+    - [BADS](class_name) location
+    - Where is class [Written Academic Discourse: Writing and Revising the Essay](class_name) taking place?
+    - Where is the [lecture](class_type) [Mathematik II](class_name)?
+    - Where does the [Sanskrit II](class_name) [lecture](class_type) take place?
+    - Which classroom is [Urban Theory](class_name) in?
+    - [Statistik II](class_name) [exercise](class_type) location
+    - Where does [APA](class_name) take place? 
+    - Where does the [Analysis II](class_name) [seminar](class_type) take place 
+    - Where do I have to go for the [language course](class_type) [Spanish 2](class_name)
+    - Where does the [GLUD](class_name) [lecture](class_type) take place? 
+    - Where is [Grammaire et traduction](class_name)
+    - [APA](class_name) [seminar](class_type) location
+    - where does the [exercise](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name) take place
+    - Where will this course [Arithmetische Geometrie](class_name) taking place? 
+    - please tell me where does  [statistics 1](class_name) [exercise](class_type) (on monday 10pm) take place
+    - In welchem Raum findet die Vorlesung [Wissen und seine Ressourcen](class_name) statt?
+    - Where is [Information Systems](class_name) taking place?
+    - In which building/room is the [Marketing Management] [lecture](class_type) on Tuesdays?
+    - where is my lecture taking place?
+    - place [language course](class_type) [Russian A1](class_name)
+    - Place of [lecture](class_type) of [Grammaire et traduction](class_name)
 - intent: inform
   examples: |
     - [lecture](class_type)

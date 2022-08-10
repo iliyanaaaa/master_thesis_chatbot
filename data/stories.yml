@@ -43,8 +43,8 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: action_get_start_time
-
+  - action: action_get_answer
+  - action: action_restart
 
 - story: interactive_class_start_time_story_1
   steps:
@@ -80,7 +80,8 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: action_get_start_time
+  - action: action_get_answer
+  - action: action_restart
 
 - story: User interrupts the start time form and doesn't want to continue
   steps:
@@ -200,7 +201,8 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: action_get_start_time
+  - action: action_get_answer
+  - action: action_restart
 
 - story: interactive_class_lecturer_story_2
   steps:
@@ -238,9 +240,9 @@ stories:
 #- story: start time lecture
 #  steps:
 #  - intent: start_time
-#  - action: action_get_start_time
+#  - action: action_get_answer
 #  - intent: start_time_lecture
-#  - action: action_get_start_time_lecture
+#  - action: action_get_answer_lecture
 
 #- story: start time
 #  steps:
@@ -304,7 +306,7 @@ stories:
 #          role: class_name
 #        - class: lecture
 #          role: class_type
-#    - action: action_get_start_time
+#    - action: action_get_answer
 
 #- story: does class exist
 #  steps:
@@ -316,15 +318,15 @@ stories:
 #  - intent: confirm_exists
 #  - action: action_check_existence
 #  - intent: start_time
-#  - action: action_get_start_time
+#  - action: action_get_answer
 #  - intent: start_time
-#  - action: action_get_start_time
+#  - action: action_get_answer
 #
 #- story: test 2
 #  steps:
 #  - intent: start_time
-#  - action: action_get_start_time
+#  - action: action_get_answer
 #  - intent: start_time
-#  - action: action_get_start_time
+#  - action: action_get_answer
 #  - intent: confirm_exists
 #  - action: action_check_existence

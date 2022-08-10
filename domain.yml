@@ -31,10 +31,10 @@ entities:
 actions:
   - utter_greet
   - utter_cheer_up
-  - action_get_start_time
+  - action_get_answer
   - action_get_moodle_link
   - action_check_existence
-  - action_lecturer
+  - action_get_lecturer
   - utter_submit
   - utter_class_slots
   - utter_ask_continue
@@ -77,7 +77,7 @@ responses:
   utter_ask_continue:
     - text: "Are you sure you want to stop the form?"
   utter_submit:
-  - text: "I will now check!"
+  - text: "I will check now!"
   utter_ask_class_name:
   - text: "I'm sorry, I didn't catch the name of the class. Could you write it down please?"
   utter_ask_class_type:
