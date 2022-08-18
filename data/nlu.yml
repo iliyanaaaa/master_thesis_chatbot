@@ -143,7 +143,7 @@ nlu:
     - When is the [lecture](class_type) [VL Grundlagen der Fachdidaktik - Grundschule](class_name) taking place?
     - When does the [lecture](class_type) [CACI](class_name) start?
     - When does the [seminar](class_type) [CACI](class_name) start?
-    - When does the [Information Systems](class_name) [exercise](class_type) start?
+    - When does the [Information Systems](class_name) [exercise](class_type) start on [Thursday](weekday)?
     - When does the [APA](class_name) [seminar](class_type) start?
     - When does the [Einführung in das Politische System der Bundesrepublik Deutschland](class_name) [seminar](class_type) start?
     - When is the [Social preferences](class_name) [seminar](class_type) taking place?
@@ -154,26 +154,27 @@ nlu:
     - Start time [information systems](class_name) [seminar](class_type)
     - Start time [Statistik](class_name)?
     - start time [Humanbiologie](class_name) [exercise](class_type)
-    - start time [seminar](class_type) [English Syntax](class_name)
+    - start time [seminar](class_type) [English Syntax](class_name) [Tuesday](weekday)
     - Starttime [English Syntax](class_name)
     - start of [Accounting Theory and Earnings Management](class_name)
-    - [Tekstresepsjon](class_name) [seminar](class_type) start time
+    - [Tekstresepsjon](class_name) [seminar](class_type) start time on [Fri](weekday)
+    - [Tekstresepsjon](class_name) [seminar](class_type) start time [Monday](weekday)
     - [ADAMS](class_name) start time
     - [Humanbiologie](class_name) start time
     - [IS](class_name) [lecture](class_type) start time
     - What time does [IS](class_name) class starts?
     - What time does the [Litauisch](class_name) [language course](class_type) start?
     - What is the start of [lecture](class_type) [Zahlentheorie](class_name)?
-    - When does the course [Topologie I](class_name) start?
+    - When does the course [Topologie I](class_name) start on [Friday](weekday)?
     - When does the [Semantik](class_name) [lecture](class_type) start?
     - when does [Urban Theory](class_name) begin?
-    - when does the [exercise](class_type) of [Grpße Spiele](class_name) begin?
+    - when does the [exercise](class_type) of [Große Spiele](class_name) begin on [Friday](weekday)?
     - When the [lecture](class_type) [Zahlentheorie](class_name) starts?
     - [Seminar](class_type) [Game Theory](class_name) starting time
     - Wann fängt [Stochastik I](class_name) an
     - Wann beginnt die [Vorlesung](class_type) [Wissen und seine Ressourcen](class_name)?
     - At which time does [Statistik II](class_name) start
-    - At what time does the [lecture](class_type) start? 
+    - At what time does the [lecture](class_type) start on [Tuesday](weekday)? 
     - At what time does the [exercise](class_type) [Mathematik II](class_type) start
     - At what hour of the day does [IS](class_name) start?
 - intent: ask_class_lecturer
@@ -277,7 +278,7 @@ nlu:
     - [Adams](class_name) place
     - Where are the [information systems](class_name) [lectures](class_type) taking place?
     - Where does [Tekstresepsjon](class_name) class take place?
-    - Venue for the [lecture](class_type) [Humanbiologie](class_name)
+    - Venue for the [lecture](class_type) [Humanbiologie](class_name) on [Friday](weekday)
     - Lecture Room [Written Academic Discourse: Writing and Revising the Essay](class_name)?
     - Where is the course [Seminar](class_type) [The Interwar Years: Democracy, Politics and Gender](class_name)?
     - What is the location of [Zahlentheorie](class_name) class?
@@ -287,22 +288,22 @@ nlu:
     - room [seminar](class_type) [Urban Theory](class_name)
     - Wo findet [Mathematik II](class_name) statt
     - Where is the [Mathematik II](class_name) [lecture](class_type)?
-    - Where is the [Info Systems](class_name) [exercise](class_type) taking place?
+    - Where is the [Info Systems](class_name) [exercise](class_type) taking place on [Monday](weekday)?
     - room [Semantics](class_name)
     - [Research Practice](class_name) location
     - place [lecture](class_type) [The Interwar Years: Democracy, Politics and Gender](class_name) thursday
     - Where is [Pedagogic Grammar](class_name) going to take place? 
-    - [Zahlentheorie](class_name) which Room?
+    - [Zahlentheorie](class_name) which Room [Thursday](weekday)?
     - Which room [Urban Theory](class_name)
     - Room [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
     - Where [Research Practice](class_name)
-    - [Morphologie](class_name) [Seminar](class_type) place
+    - [Morphologie](class_name) [Seminar](class_type) place on [Wednesday](weekday)
     - Where is the [language course](class_type) [Litauisch](class_name) taking place
     - place for [Accouting Theory and Earnings Management](class_name)
-    - [BADS](class_name) location
+    - [BADS](class_name) location on [Wednesday](weekday)
     - Where is class [Written Academic Discourse: Writing and Revising the Essay](class_name) taking place?
     - Where is the [lecture](class_type) [Mathematik II](class_name)?
-    - Where does the [Sanskrit II](class_name) [lecture](class_type) take place?
+    - Where does the [Sanskrit II](class_name) [lecture](class_type) take place on [Wednesday](weekday)?
     - Which classroom is [Urban Theory](class_name) in?
     - [Statistik II](class_name) [exercise](class_type) location
     - Where does [APA](class_name) take place? 
@@ -310,16 +311,122 @@ nlu:
     - Where do I have to go for the [language course](class_type) [Spanish 2](class_name)
     - Where does the [GLUD](class_name) [lecture](class_type) take place? 
     - Where is [Grammaire et traduction](class_name)
-    - [APA](class_name) [seminar](class_type) location
+    - [APA](class_name) [seminar](class_type) location on [Thursday](weekday)
     - where does the [exercise](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name) take place
     - Where will this course [Arithmetische Geometrie](class_name) taking place? 
     - please tell me where does  [statistics 1](class_name) [exercise](class_type) (on monday 10pm) take place
     - In welchem Raum findet die Vorlesung [Wissen und seine Ressourcen](class_name) statt?
-    - Where is [Information Systems](class_name) taking place?
+    - Where is [Information Systems](class_name) taking place on [Monday](weekday)?
     - In which building/room is the [Marketing Management] [lecture](class_type) on Tuesdays?
     - where is my lecture taking place?
     - place [language course](class_type) [Russian A1](class_name)
     - Place of [lecture](class_type) of [Grammaire et traduction](class_name)
+- intent: ask_class_zoom_link
+  examples: |
+    - Zoom link to [Pedagogic Grammar](class_name)?
+    - zoom link [information systems[(class_name) [seminar](class_type)
+    - He, can you please give me the link to the zoom session for the class [behavioural economics](class_name) ?
+    - [Adams](class_name) zoom link
+    - What’s the zoom link of [information systems](class_name)?
+    - What is the Zoom link for [Mathematik](class_name) class?
+    - share the zoom link for [Psychiatrische Narrative und Schreibweisen](class_name)
+    - share the zoom link [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
+    - share the zoom link [seminar](class_type) [Ökologie](class_name)
+    - Link to online class [Bodenprozesse](class_name)?
+    - What is the zoom link for the course [Seminar](class_type) [English Syntax](class_name)?
+    - What is the zoom link to the online class [Written Academic Discourse: Writing and Revising the Essay](class_name)
+    - zoom link to [Pedagogic Grammar](class_name) class
+    - [Research Practice](class_name) [exercise](class_type) zoom link
+    - zoom [Grammaire et traduction](class_name) [exercise](class_type)
+    - zoom link [lecture](class_name) [information systems](class_type)
+    - Zoom link [Analysis II](class_name)
+    - What is the zoom link to the [Social preferences](class_name)
+    - What's the zoom link for the [Grammaire et traduction](class_name) class?
+    - link zoom [spanish](class_name)
+    - Zoom link [turkish](class_name) [language course](class_type)
+    - zoom link [lecture](class_type) [BADS](class_name) thursday
+    - Could you send me the zoom link for [Urban Theory](class_name)
+    - Zoom Link?
+    - Zoom link of [Zahlentheorie](class_name)?
+    - Zoom Link [Information Systems](class_name)
+    - Zoom link [IS](class_name) [seminar](class_type)
+    - Zoom link to that class
+    - zoom link [Accouting Theory and Earnings Management[(class_name)
+    - [Social preferences](class_name) zoom link
+    - What's the zoom link to class [Litauisch](class_name)?
+    - Can you give me the zoom link for [Statistik I](class_name) [lecture](class_type)?
+    - What is the zoom link for the [Mathematik II](class_name) [lecture](class_type)?
+    - Zoom Link [Produzione scritta: Vorbereitung auf den MAP-Aufsatz](class_name)
+    - Share the zoom link
+    - [Mapping social inequalities](class_name) online class zoom link
+    - Give me the zoom link to [Syntax](class_name)
+    - Give me the zoom link to the [Kleine Spiele](class_name) [lecture](class_type)
+    - Is there a zoom link for this course?
+    - Can you provide me with the zoom link for [GLUD](class_name) online class?
+    - What’s the zoom link
+    - Can i have the zoom link for [Topologie I](class_name)?
+    - what’s the zoom link to the class
+    - Where do I find the zoom link to the [Tekstresepsjon](class_name) online class?
+    - please give me the zoom link to the [statistics 1](class_name) [exercise](class_type) (on monday 10am)
+    - Wie lautet der Zoom-Link für das [Seminar](class_type) [Medien der Logistik](class_name)?
+    - What is the Zoom link to [Information Systems](class_type)?
+    - What is the zoom link to the online [lecture](class_type) for [Marketing Management](class_name) Sommer 2022?
+    - can you give me the link to the online class?
+    - zoom link [lecture](class_type) [BADS](class_name)
+    - Zoom link of [Business Analytics](class_name)
+- intent: ask_class_moodle_link
+  examples: |
+    - moodle link to [Pedagogic Grammar](class_name)?
+    - moodle link [information systems[(class_name) [seminar](class_type)
+    - Hey, can you please give me the link to the moodle session for the class [behavioural economics](class_name) ?
+    - [Adams](class_name) moodle link
+    - What’s the moodle link of [information systems](class_name)?
+    - What is the moodle link for [Mathematik](class_name) class on [Monday](weekday)?
+    - share the moodle link for [Psychiatrische Narrative und Schreibweisen](class_name)
+    - share the moodle link [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
+    - share the moodle link [seminar](class_type) [Ökologie](class_name)
+    - Link to online class [Bodenprozesse](class_name)?
+    - What is the moodle link for the course [Seminar](class_type) [English Syntax](class_name)?
+    - What is the moodle link to the online class [Written Academic Discourse: Writing and Revising the Essay](class_name)
+    - moodle link to [Pedagogic Grammar](class_name) class on [Friday](weekday)
+    - [Research Practice](class_name) [exercise](class_type) moodle link
+    - moodle [Grammaire et traduction](class_name) [exercise](class_type)
+    - moodle link [lecture](class_name) [information systems](class_type)
+    - moodle link [Analysis II](class_name) [Thursday](weekday)
+    - What is the moodle link to the [Social preferences](class_name)
+    - What's the moodle link for the [Grammaire et traduction](class_name) class on [Friday](weekday)?
+    - [Tuesday](weekday) link moodle [spanish](class_name)
+    - moodle link [turkish](class_name) [language course](class_type)
+    - moodle link [lecture](class_type) [BADS](class_name) thursday
+    - Could you send me the moodle link for [Urban Theory](class_name)
+    - moodle Link?
+    - moodle link of [Zahlentheorie](class_name)?
+    - moodle Link [Information Systems](class_name)
+    - moodle link [IS](class_name) [seminar](class_type)
+    - moodle link to that class
+    - moodle link [Accouting Theory and Earnings Management[(class_name)
+    - [Social preferences](class_name) moodle link
+    - What's the moodle link to class [Litauisch](class_name) on [Wednesday](weekday)?
+    - Can you give me the moodle link for [Statistik I](class_name) [lecture](class_type)?
+    - What is the moodle link for the [Mathematik II](class_name) [lecture](class_type)?
+    - moodle Link [Produzione scritta: Vorbereitung auf den MAP-Aufsatz](class_name)
+    - Share the moodle link
+    - [Mapping social inequalities](class_name) online class moodle link
+    - Give me the moodle link to [Syntax](class_name) on [Monday](weekday)
+    - Give me the moodle link to the [Kleine Spiele](class_name) [lecture](class_type)
+    - Is there a moodle link for this course?
+    - Can you provide me with the moodle link for [GLUD](class_name) online class?
+    - What’s the moodle link
+    - Can i have the moodle link for [Topologie I](class_name)?
+    - what’s the moodle link to the class
+    - Where do I find the moodle link to the [Tekstresepsjon](class_name) online class?
+    - please give me the moodle link to the [statistics 1](class_name) [exercise](class_type) (on monday 10am)
+    - Wie lautet der moodle-Link für das [Seminar](class_type) [Medien der Logistik](class_name)?
+    - What is the moodle link to [Information Systems](class_type)?
+    - What is the moodle link to the online [lecture](class_type) for [Marketing Management](class_name) Sommer 2022?
+    - can you give me the link to the online class?
+    - moodle link [lecture](class_type) [BADS](class_name)
+    - moodle link of [Business Analytics](class_name)
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -354,6 +461,24 @@ nlu:
     - Information systems
     - Information system
     - IS
+- lookup: weekday
+  examples: |
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    - Mo
+    - Mon
+    - Tu
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    - Sun
 - lookup: class_name
   examples: |
     - Information Systems
