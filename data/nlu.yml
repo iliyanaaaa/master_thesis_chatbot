@@ -177,6 +177,51 @@ nlu:
     - At what time does the [lecture](class_type) start on [Tuesday](weekday)? 
     - At what time does the [exercise](class_type) [Mathematik II](class_type) start
     - At what hour of the day does [IS](class_name) start?
+- intent: ask_exam_type
+  examples: |
+    - [information systems](class_name) [seminar](class_type) exam type
+    - [Morphologie](class_name) exam type?
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) exam 
+    - [Urban Theory](class_name) exam format
+    - [Statstik](class_name) [Seminar](class_type) exam Format
+    - Hey, what is the exam form for [behavioural economics](class_name)?
+    - Exam info [Einführung in das Politische System der Bundesrepublik Deutschland](class_name)
+    - Is the [IS](class_name) examination going to be in form of a written or oral test or in form of a homework?
+    - Has [lecture](class_type) [Information Systems](class_name) a written, oral or paper exam?
+    - What is the format of [IS](class_name) exam?
+    - How is the exam type for [Mathematik II](class_name)?
+    - What is the format of the exam in [Mathematik II](class_name)
+    - what kind of exam is the [ADAMS](class_name) exam
+    - What kind of exam is the [IS](class_name) [lecture](class_type) exam?
+    - what format does the [information systems](class_name) exam have?
+    - Is the [seminar](class_type) [information systems](class_name) exam written?
+    - Prüfingsform Klausur [Zahlentheorie](class_name)
+    - modus exam [Stochastik I](class_name)
+    - In what Form is the exam going to be 
+    - Form of exam?
+    - what is the type of exam?
+    - What kind of exam will it be? 
+    - is my exam written?
+    - exam [Accouting Theory and Earnings Management](class_name)
+    - is the [Mathematik II](class_name) exam written, oral or in paper?
+    - What is the format of the [Stochastik](class_name) exam?
+    - How is the exam for [Social preferences](class_name) gonna be modelled?
+    - Exam [BADS](class_name) format
+    - What's the format of the [Semantics](class_name) exam
+    - what format is the [ADAMS](class_name) exam taken in
+    - What type of exam will [Vorbereitung des berufsfelderschließenden Praktikums:Bildungseinstellungen und Bildungserfolge](class_name) have?
+    - Whats the exam format for [Social preferences](class_name)? 
+    - What kind of exam do I have to do in [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - How is the [GLUD](class_name) exam composed?
+    - Is the exam in [Business Analytics](class_name) written or …
+    - What kind of exam does [Analysis II](class_name) have?
+    - what is the exam type of [Arithmetische Geometrie](class_name) going to be
+    - will the exam for [statistics 1](class_name) be written, oral or on paper?
+    - Wird die Klausur in der Vorlesung [Wissen und seine Ressourcen](class_name) schriftlich oder mündlich stattfinden oder soll ich eine Abgabe einreichen? 
+    - In which form will the exam of [Information Systems](class_name) be?
+    - In which form will the [Marketing Management](class_name) exam be for Summer 2022?
+    - Exam [Frankophonie](class_name)
+    - Exam format of [Grammatica](class_name)?
 - intent: ask_class_lecturer
   examples: |
     - lecturer?
@@ -427,6 +472,23 @@ nlu:
     - can you give me the link to the online class?
     - moodle link [lecture](class_type) [BADS](class_name)
     - moodle link of [Business Analytics](class_name)
+- intent: ask_class_is_about
+  examples: |
+    - [information systems](class_name) [seminar](class_type) summary
+    - [Morphologie](class_name) summary?
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) topics 
+    - [Urban Theory](class_name) topic
+    - Hey, what is the class [behavioural economics](class_name) about?
+    - What is the [seminar](class_type) [Humanbiologie](class_name) about?
+    - What's the class [Mathematik II](class_name) about?
+    - Class info [Einführung in das Politische System der Bundesrepublik Deutschland](class_name)
+    - What is the class [IS](class_name) going to be about?
+    - Is the [lecture](class_type) [Information Systems](class_name) for all students?
+    - Who is the target group for the class [IS](class_name)?
+    - What is the main objective of [Mathematik II](class_name)?
+    - What will I learn in [Social Hydrology](class_name)
+    - What is the topic of [Mathematik II](class_name)
+    - What's the topic of [Advanced Data Analytics for Management Support](class_name)
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -566,4 +628,10 @@ nlu:
     - Morphology
     - Tekstreception
     - Middle English
-    - Analysis II*
+    - Social Hydrology
+    - Advanced Data Analytics for Management Support
+    - Finanzierung und Investition
+    - Mikroökonomie II
+    - Social Hydrology
+    - Statistical Inference II
+    - A History of Cartoons

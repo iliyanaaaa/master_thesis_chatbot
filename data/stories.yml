@@ -241,6 +241,9 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: ask_class_location
+    entities:
+      - class_name
+      - class_type
   - action: class_name_type_form
   - active_loop: class_name_type_form
   - slot_was_set:
@@ -264,6 +267,9 @@ stories:
 - story: interactive_class_location_story_2
   steps:
   - intent: ask_class_location
+    entities:
+      - class_name
+      - class_type
   - action: class_name_type_form
   - active_loop: class_name_type_form
   - slot_was_set:
@@ -284,6 +290,9 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: ask_class_zoom_link
+    entities:
+      - class_name
+      - class_type
   - action: class_name_type_form
   - active_loop: class_name_type_form
   - slot_was_set:
@@ -307,6 +316,9 @@ stories:
 - story: interactive_class_zoom_link_story_2
   steps:
   - intent: ask_class_zoom_link
+    entities:
+      - class_name
+      - class_type
   - action: class_name_type_form
   - active_loop: class_name_type_form
   - slot_was_set:
@@ -326,6 +338,9 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: ask_class_moodle_link
+    entities:
+      - class_name
+      - class_type
   - action: class_name_type_form
   - active_loop: class_name_type_form
   - slot_was_set:
@@ -362,6 +377,106 @@ stories:
     - requested_slot: null
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_class_is_about_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_is_about
+    entities:
+      - class_name
+  - action: class_name_form
+  - active_loop: class_name_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: Advanced Data Analytics for Management Support
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_class_is_about_story_2
+  steps:
+  - intent: ask_class_is_about
+    entities:
+      - class_name
+  - action: class_name_form
+  - active_loop: class_name_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User interrupts the lecturer form and doesn't want to continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_is_about
+  - action: class_name_form
+  - active_loop: class_name_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: interactive_ask_exam_type_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_exam_type
+    entities:
+      - class_name
+  - action: class_name_form
+  - active_loop: class_name_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: behavioural economics
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_ask_exam_type_story_2
+  steps:
+  - intent: ask_exam_type
+  - action: class_name_form
+  - active_loop: class_name_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User interrupts the lecturer form and doesn't want to continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_exam_type
+  - action: class_name_form
+  - active_loop: class_name_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
 
 #- story: start time lecture
 #  steps:

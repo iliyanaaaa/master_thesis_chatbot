@@ -37,9 +37,108 @@ and class_type = '%s'
 
 add_weekday_query = "and week_day = '%s'"
 
-get_class_types_query = '''select abbr, class_type_en
+get_class_types_query = '''select abbr, class_type_de
                             from (
-                            select max(length(abbr)), abbr, class_type_en
+                            select max(length(abbr)), abbr, class_type_de
                             from types_of_classes toc 
-                            group by abbr, class_type_en) as t
+                            group by abbr, class_type_de) as t
                             order by max'''
+
+get_weekday_en_de = '''
+with te as (
+select *
+from texte t 
+join r_texte rt 
+on rt.texteid = t.texteid 
+where rt.tabelle = 'k_wochentag')
+select txt as weekday_en, ltxt as weekday_de
+from te
+join k_wochentag kw 
+on kw.wochentagid = te.tabpk
+where te.spalte = 'ltxt'
+'''
+
+get_ueberschrift_en_de = '''
+with te as (
+select *
+from texte t 
+join r_texte rt 
+on rt.texteid = t.texteid 
+where rt.tabelle = 'ueberschrift')
+select te.txt, ue.txt
+from te
+join ueberschrift ue
+on ue.ueid = te.tabpk'''
+
+get_veranstaltung_en_de = '''
+with te as (
+select *
+from texte t 
+join r_texte rt 
+on rt.texteid = t.texteid 
+where rt.tabelle = 'veranstaltung')
+select txt, dtxt
+from te
+join veranstaltung v
+on v.veranstid  = te.tabpk
+'''
+
+get_einrichtung_en_de = '''
+with te as (
+select *
+from texte t 
+join r_texte rt 
+on rt.texteid = t.texteid 
+where rt.tabelle = 'einrichtung')
+select txt, dtxt
+from te
+join einrichtung e
+on e.eid  = te.tabpk
+where te.spalte = 'dtxt' '''
+
+get_rhythmus_en_de = '''
+with te as (
+select *
+from texte t 
+join r_texte rt 
+on rt.texteid = t.texteid 
+where rt.tabelle = 'k_rhythmus')
+select txt, dtxt
+from te
+join k_rhythmus kr
+on kr.rhythmusid  = te.tabpk
+where te.spalte = 'dtxt' '''
+
+get_exam_info = '''
+select distinct txt from (
+with blo as (
+select *
+from blobs b
+join r_blob rb
+on rb.blobid  = b.blobid 
+where rb.tabelle = 'veranstaltung')
+select blo.txt, v.dtxt, blo.spalte
+from blo
+join veranstaltung v
+on v.veranstid = blo.tabpk) as x
+join class_info_view civ 
+on x.dtxt = civ.class_name 
+where spalte = 'nachweis'  and class_name = '%s'
+'''
+
+get_class_is_about = '''
+select distinct txt, class_type from (
+with blo as (
+select *
+from blobs b
+join r_blob rb
+on rb.blobid  = b.blobid 
+where rb.tabelle = 'veranstaltung')
+select distinct  blo.txt, v.dtxt, blo.spalte
+from blo
+join veranstaltung v
+on v.veranstid = blo.tabpk) as x
+join class_info_view civ 
+on x.dtxt = civ.class_name 
+where spalte = 'kommentar' and class_name = '%s'
+'''

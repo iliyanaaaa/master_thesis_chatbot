@@ -36,7 +36,7 @@ rules:
 
 - rule: activate class name form
   steps:
-    - intent: ask_which_semester_class_takes_place
+    - intent: ask_which_semester_class_takes_place OR ask_exam_type OR ask_class_is_about
     - action: class_name_form
     - active_loop: class_name_form
 

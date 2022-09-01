@@ -24,13 +24,17 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 
+from io import StringIO
+from html.parser import HTMLParser
+# import torch
+
 import pandas as pd
 import Levenshtein
 
 from actions.db_connections import PSY_CONN_PUB, SQA_CONN_PUB
 from actions.sql_queries import get_class_start_time_query, get_available_class_types_by_class_name_query, \
     get_all_classes_info_query, get_lecturer_query, get_location_query, get_moodle_link_query, add_weekday_query, \
-    get_class_types_query
+    get_class_types_query, get_weekday_en_de, get_exam_info, get_class_is_about
 
 PSY_CONN_PUB.autocommit = True
 df_class_names = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
@@ -38,7 +42,7 @@ CLASS_NAMES = df_class_names['class_name'].values.tolist()
 df_class_types = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
 CLASS_TYPES = df_class_types['class_type'].values.tolist()
 CLASS_TYPE_MAPPINGS_df = pd.read_sql('Select * from types_of_classes', con=SQA_CONN_PUB)
-WEEKDAYS_EN_DE = dict(pd.read_sql('Select * from weekdays order by weekday_eng', con=SQA_CONN_PUB).values)
+WEEKDAYS_EN_DE = dict(pd.read_sql(get_weekday_en_de, con=SQA_CONN_PUB).values)
 WEEKDAYS_DE_EN = {y: x for x, y in WEEKDAYS_EN_DE.items()}
 CLASS_TYPES_EN_DE = dict(pd.read_sql(get_class_types_query, con=SQA_CONN_PUB).values)
 CLASS_TYPES_DE_EN = {y: x for x, y in CLASS_TYPES_EN_DE.items()}
@@ -46,6 +50,31 @@ CLASS_TYPES_DE_EN = {y: x for x, y in CLASS_TYPES_EN_DE.items()}
 LANG = 'en'
 
 # CLASS_TYPE_MAPPINGS = df_class_type_mappings['types'].values.tolist()
+# from transformers import BertTokenizer, BertForQuestionAnswering
+
+# bert_model = BertForQuestionAnswering.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
+# bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
+
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.text = StringIO()
+
+    def handle_data(self, d):
+        self.text.write(d)
+
+    def get_data(self):
+        return self.text.getvalue()
+
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
 
 
 class ActionCheckExistence(Action):
@@ -112,7 +141,7 @@ class ValidateClassNameTypeForm(FormValidationAction):
                 class_type = CLASS_TYPES[most_similar_index]
         if class_type not in ['lecture', 'exercise', 'seminar']:
             class_type = \
-                CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type]['class_type'].values.tolist()[
+                CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type]['class_type_de'].values.tolist()[
                     0]
         df = pd.read_sql(get_class_start_time_query % (class_name, class_type), con=SQA_CONN_PUB)
         if df.empty:
@@ -172,7 +201,8 @@ class AskForClassTypeAction(Action):
     ) -> List[EventType]:
         class_name = tracker.get_slot('class_name')
         weekday = tracker.get_slot('weekday')
-        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name_query % class_name, con=SQA_CONN_PUB)
+        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name_query % class_name,
+                                               con=SQA_CONN_PUB)
         available_class_types = df_available_class_types['class_type'].values.tolist()
         if len(available_class_types) > 1:
             dispatcher.utter_message(
@@ -246,10 +276,34 @@ def return_class_location(class_name, class_type, weekday) -> Text:
         query += add_weekday_query % weekday
     df = pd.read_sql(query, con=SQA_CONN_PUB)
     if not df.empty:
-        message = f"The {CLASS_TYPES_DE_EN.get(class_type)} {class_name} takes place in {df.iloc[0]['room']} {df.iloc[0]['floor'].trim()}," \
+        message = f"The {CLASS_TYPES_DE_EN.get(class_type)} {class_name} takes place in {df.iloc[0]['room']} {df.iloc[0]['floor'].strip()}," \
                   f"{df.iloc[0]['building']}, {df.iloc[0]['facility']}. The address is {df.iloc[0]['address']}."
     else:
         message = f"I can't find the {CLASS_TYPES_DE_EN.get(class_type)} {class_name} in the database."
+    return message
+
+
+def return_exam_type(class_name) -> Text:
+    print('start return_exam_type')
+    query = get_exam_info % class_name
+    df = pd.read_sql(query, con=SQA_CONN_PUB)
+    if not df.empty:
+        message = strip_tags(df.iloc[0]['txt'])
+    else:
+        message = f"I can't find information about the {class_name} in the database."
+    return message
+
+
+def return_class_is_about(class_name) -> Text:
+    print('start return_class_is_about')
+    query = get_class_is_about % class_name
+    df = pd.read_sql(query, con=SQA_CONN_PUB)
+    if not df.empty:
+        message = strip_tags(df.iloc[0]['txt'])
+        question = "What are the topics of Advanced Data Analytics for Management Support?"
+        # qa(question, message, bert_model, bert_tokenizer)
+    else:
+        message = f"I can't find information about the {class_name} in the database."
     return message
 
 
@@ -288,7 +342,35 @@ def choose_action(tracker, class_name, class_type, weekday):
         message = return_class_location(class_name, class_type, weekday)
     elif intent_name == 'ask_class_moodle_link':
         message = return_class_moodle_link(class_name, class_type, weekday)
+    elif intent_name == 'ask_exam_type':
+        message = return_exam_type(class_name)
+    elif intent_name == 'ask_class_is_about':
+        message = return_class_is_about(class_name)
     return message
+
+
+def qa(question, answer_text, model, tokenizer):
+    inputs = tokenizer.encode_plus(question, answer_text, add_special_tokens=True, return_tensors="pt")
+    input_ids = inputs["input_ids"].tolist()[0]
+
+    text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
+    # print(text_tokens)
+    outputs = model(**inputs)
+    answer_start_scores = outputs.start_logits
+    answer_end_scores = outputs.end_logits
+
+    answer_start = torch.argmax(
+        answer_start_scores
+    )  # Get the most likely beginning of answer with the argmax of the score
+    answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
+
+    answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
+
+    # Combine the tokens in the answer and print it out.""
+    answer = answer.replace("#", "")
+
+    return answer
+
 
 class ActionGetLecturer(Action):
     def name(self) -> Text:
