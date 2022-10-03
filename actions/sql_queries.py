@@ -140,5 +140,5 @@ join veranstaltung v
 on v.veranstid = blo.tabpk) as x
 join class_info_view civ 
 on x.dtxt = civ.class_name 
-where spalte = 'kommentar' and class_name = '%s'
+where spalte = 'kommentar' and class_name like '%%{class_name}%%'
 '''

@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 from typing import Any, Text, Dict, List
 
+import torch
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa.core.actions.forms import FormAction
@@ -30,6 +31,7 @@ from html.parser import HTMLParser
 
 import pandas as pd
 import Levenshtein
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 
 from actions.db_connections import PSY_CONN_PUB, SQA_CONN_PUB
 from actions.sql_queries import get_class_start_time_query, get_available_class_types_by_class_name_query, \
@@ -52,8 +54,8 @@ LANG = 'en'
 # CLASS_TYPE_MAPPINGS = df_class_type_mappings['types'].values.tolist()
 # from transformers import BertTokenizer, BertForQuestionAnswering
 
-# bert_model = BertForQuestionAnswering.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
-# bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
+electra_tokenizer = AutoTokenizer.from_pretrained("valhalla/electra-base-discriminator-finetuned_squadv1")
+electra_model = AutoModelForQuestionAnswering.from_pretrained("valhalla/electra-base-discriminator-finetuned_squadv1")
 
 
 class MLStripper(HTMLParser):
@@ -294,14 +296,14 @@ def return_exam_type(class_name) -> Text:
     return message
 
 
-def return_class_is_about(class_name) -> Text:
-    print('start return_class_is_about')
-    query = get_class_is_about % class_name
+def return_class_is_about(class_name, tracker) -> Text:
+    print('start return_class_is_about for class name ', class_name)
+    query = get_class_is_about.format(class_name=class_name)
     df = pd.read_sql(query, con=SQA_CONN_PUB)
     if not df.empty:
-        message = strip_tags(df.iloc[0]['txt'])
-        question = "What are the topics of Advanced Data Analytics for Management Support?"
-        # qa(question, message, bert_model, bert_tokenizer)
+        context = strip_tags(df.iloc[0]['txt'])
+        question = tracker.latest_message['text']
+        message = qa(question, context, electra_model, electra_tokenizer)
     else:
         message = f"I can't find information about the {class_name} in the database."
     return message
@@ -345,7 +347,7 @@ def choose_action(tracker, class_name, class_type, weekday):
     elif intent_name == 'ask_exam_type':
         message = return_exam_type(class_name)
     elif intent_name == 'ask_class_is_about':
-        message = return_class_is_about(class_name)
+        message = return_class_is_about(class_name, tracker)
     return message
 
 
@@ -427,3 +429,27 @@ class ActionHelloWorld(Action):
         dispatcher.utter_message(text="Hello World!")
 
         return []
+
+
+def qa(question, answer_text, model, tokenizer):
+    inputs = tokenizer.encode_plus(question, answer_text, add_special_tokens=True, return_tensors="pt")
+    input_ids = inputs["input_ids"].tolist()[0]
+
+    text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
+    outputs = model(**inputs)
+    answer_start_scores = outputs.start_logits
+    answer_end_scores = outputs.end_logits
+
+    answer_start = torch.argmax(
+        answer_start_scores
+    )  # Get the most likely beginning of answer with the argmax of the score
+    answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
+
+    answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
+
+    # Combine the tokens in the answer and print it out.""
+    answer = answer.replace("#", "")
+
+    print(f"Question: {question}")
+    print(f"Answer: {answer}")
+    return answer
