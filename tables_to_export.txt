@@ -1,0 +1,11 @@
+class_info_view
+types_of_classes
+texte
+r_texte
+ueberschrift
+k_wochentag
+veranstaltung
+einrichtung
+k_rhythmus
+blobs
+r_blob

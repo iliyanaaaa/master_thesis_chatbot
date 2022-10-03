@@ -1,0 +1,14 @@
+"rhythmusid","rhythmus","aikz","ktxt","dtxt","ltxt","tage","zeitstempel","sort"
+7,Block     ,A,Block     ,Blockveranstaltung,Blocktermin (mehrere Tage nacheinander; nicht Samstags und nicht Sonntags),1,2007-03-10 15:20:09.739,80
+6,monatl    ,I,monatl    ,monatlich,monatlich,30,2007-03-10 15:20:09.744,100
+1,"1/4jährl  ",I,"1/4jährl  ",vierteljährlich,vierteljährlich,91,2007-03-10 15:20:09.748,110
+5,jährl     ,I,jährl     ,jährlich,jährlich,365,2007-03-10 15:20:09.751,120
+3,BlockSaSo ,A,Block+SaSo,Blockveranstaltung + Sa und So,Blocktermin (mehrere Tage nacheinander; auch Samstags und Sonntags),2,2007-03-10 15:20:09.754,85
+9,BlockSa   ,A,Block+Sa  ,Blockveranstaltung + Sa,Blocktermin (mehrere Tage nacheinander; auch Samstags aber nicht Sonntags),,2007-03-10 15:20:44.783,88
+4,Einzel    ,A,Einzel    ,Einzeltermin,Einzeltermin,0,,70
+8,woch      ,A,wöch      ,wöchentlich,wöchentlich,7,2007-03-10 15:21:33.675,10
+2,"14tägl    ",A,"14tgl.    ","14tgl.","14tgl.",14,2008-02-04 12:19:28.968,20
+10,gerWoch   ,A,"14tgl./1  ","14tgl./1","14tgl./1",,2008-02-04 12:19:28.994,30
+11,ungerWoch ,A,"14tgl./2  ","14tgl./2","14tgl./2",,2008-02-04 12:19:29.400,35
+12,dreiwöch  ,A,dreiwöch. ,dreiwöchentlich,dreiwöchentlich,,2010-09-23 14:41:50.155,130
+13,vierwöch  ,A,vierwöch. ,vierwöchentlich,vierwöchentlich,,2010-09-23 14:41:50.183,140
