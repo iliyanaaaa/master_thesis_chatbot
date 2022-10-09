@@ -6,24 +6,16 @@
 
 
 # This is a simple example for a custom action which utters "Hello World!"
-import json
-from pathlib import Path
 from typing import Any, Text, Dict, List
 
 import torch
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa.core.actions.forms import FormAction
-from rasa_sdk.forms import FormValidationAction
+
 from rasa_sdk import Tracker, FormValidationAction
-from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
-from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 
 from io import StringIO
 from html.parser import HTMLParser
@@ -36,23 +28,70 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 from actions.db_connections import PSY_CONN_PUB, SQA_CONN_PUB
 from actions.sql_queries import get_class_start_time_query, get_available_class_types_by_class_name_query, \
     get_all_classes_info_query, get_lecturer_query, get_location_query, get_moodle_link_query, add_weekday_query, \
-    get_class_types_query, get_weekday_en_de, get_exam_info, get_class_is_about
+    get_class_types_query, get_weekday_en_de, get_class_is_about, get_types_of_classes, \
+    add_class_type_query, class_info_view_txt_query_class_name
+
+MODE = 'database'  # 'local_csv'
+sqa_con = SQA_CONN_PUB
 
 PSY_CONN_PUB.autocommit = True
-df_class_names = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
+
+
+def perform_query(mode, looking_for, class_name=None, class_type=None, weekday=None, con=None):
+    if mode == 'database' and con is not None:
+        if looking_for == 'all_classes':
+            query = get_all_classes_info_query
+        elif looking_for == 'types_of_classes':
+            query = get_types_of_classes
+        elif looking_for == 'weekdays':
+            query = get_weekday_en_de
+        else:
+            variables = VARIABLES_DICT.get(looking_for)
+            query = class_info_view_txt_query_class_name % (variables, class_name)
+            if class_type is not None:
+                query += add_class_type_query % class_type
+            if weekday is not None:
+                query += add_weekday_query % weekday
+        print('Final query is', query)
+        df = pd.read_sql(query, con=con)
+    elif mode == 'local_csv':
+        if looking_for == 'weekdays':
+            df = pd.read_csv('data/csv_exports/weekdays.csv')
+        elif looking_for == 'types_of_classes':
+            df = pd.read_csv('data/csv_exports/types_of_classes.csv')
+        else:
+            df = pd.read_csv('data/csv_exports/class_info_view.csv')
+            variables_str = VARIABLES_DICT.get(looking_for)
+            variables = variables_str.split(',')
+            if class_type is not None:
+                df = df[(df['class_name'] == class_name)]
+            if class_type is not None:
+                df = df[(df['class_type'] == class_type)]
+            if weekday is not None:
+                df = df[(df['weekday'] == weekday)]
+            df = df[variables]
+
+    return df
+
+
+df_class_names = perform_query(MODE, 'all_classes', con=sqa_con)
 CLASS_NAMES = df_class_names['class_name'].values.tolist()
-df_class_types = pd.read_sql(get_all_classes_info_query, con=SQA_CONN_PUB)
-CLASS_TYPES = df_class_types['class_type'].values.tolist()
-CLASS_TYPE_MAPPINGS_df = pd.read_sql('Select * from types_of_classes', con=SQA_CONN_PUB)
-WEEKDAYS_EN_DE = dict(pd.read_sql(get_weekday_en_de, con=SQA_CONN_PUB).values)
+CLASS_TYPES = df_class_names['class_type'].values.tolist()
+CLASS_TYPE_MAPPINGS_df = perform_query(MODE, 'types_of_classes', con=sqa_con)
+WEEKDAYS_EN_DE = dict(perform_query(MODE, 'weekdays', con=sqa_con).values)
 WEEKDAYS_DE_EN = {y: x for x, y in WEEKDAYS_EN_DE.items()}
-CLASS_TYPES_EN_DE = dict(pd.read_sql(get_class_types_query, con=SQA_CONN_PUB).values)
-CLASS_TYPES_DE_EN = {y: x for x, y in CLASS_TYPES_EN_DE.items()}
+# CLASS_TYPES_EN_DE = dict(pd.read_sql(get_class_types_query, con=SQA_CONN_PUB).values)
+CLASS_TYPES_DE_EN = {'Seminar': 'seminar', 'Übung': 'exercise', 'Vorlesung': 'lecture', 'Grundkurs': 'ground course',
+                     'Sprachkurs': 'language course', 'Hauptseminar': 'main seminar'}
+CLASS_TYPES_EN_DE = {y: x for x, y in CLASS_TYPES_DE_EN.items()}
+VARIABLES_DICT = {'class_types': 'class_type',
+                  'start_time': ' class_name, class_type, start_time, week_day',
+                  'lecturer': ' lecturer',
+                  'location': ' room, floor , building , facility , address',
+                  'moodle_link': 'hyperlink',
+                  'class_is_about': 'txt'}
 
 LANG = 'en'
-
-# CLASS_TYPE_MAPPINGS = df_class_type_mappings['types'].values.tolist()
-# from transformers import BertTokenizer, BertForQuestionAnswering
 
 electra_tokenizer = AutoTokenizer.from_pretrained("valhalla/electra-base-discriminator-finetuned_squadv1")
 electra_model = AutoModelForQuestionAnswering.from_pretrained("valhalla/electra-base-discriminator-finetuned_squadv1")
@@ -79,26 +118,6 @@ def strip_tags(html):
     return s.get_data()
 
 
-class ActionCheckExistence(Action):
-    def name(self) -> Text:
-        return "action_check_existence"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        for blob in tracker.latest_message['entities']:
-            print(tracker.latest_message)
-            if blob['entity'] == 'class_name':
-                name = blob['value']
-                if name in CLASS_NAMES:
-                    df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-                    dispatcher.utter_message(text=f"Yes, {name} is a class name. Find it under {df.iloc[0]['a']}")
-                else:
-                    dispatcher.utter_message(
-                        text=f"I do not recognize {name}, are you sure it is correctly spelled?")
-        return []
-
-
 class ValidateClassNameTypeForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_class_name_type_form"
@@ -112,6 +131,7 @@ class ValidateClassNameTypeForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `class_name` value."""
 
+        print('start validating class name')
         if slot_value not in CLASS_NAMES:
             similarity_perc = [Levenshtein.jaro(slot_value.lower(), s.lower()) for s in CLASS_NAMES]
             if max(similarity_perc) < 0.7:
@@ -143,9 +163,11 @@ class ValidateClassNameTypeForm(FormValidationAction):
                 class_type = CLASS_TYPES[most_similar_index]
         if class_type not in ['lecture', 'exercise', 'seminar']:
             class_type = \
-                CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type]['class_type_de'].values.tolist()[
+                CLASS_TYPE_MAPPINGS_df.loc[CLASS_TYPE_MAPPINGS_df['abbr'] == class_type][
+                    'class_type_de'].values.tolist()[
                     0]
-        df = pd.read_sql(get_class_start_time_query % (class_name, class_type), con=SQA_CONN_PUB)
+        df = perform_query(mode=MODE, looking_for='start_time', class_name=class_name,
+                           class_type=class_type, con=sqa_con)
         if df.empty:
             dispatcher.utter_message(text=f"I'm sorry. There is no data about the {class_type} {class_name}")
             return {"class_type": None}
@@ -203,17 +225,18 @@ class AskForClassTypeAction(Action):
     ) -> List[EventType]:
         class_name = tracker.get_slot('class_name')
         weekday = tracker.get_slot('weekday')
-        df_available_class_types = pd.read_sql(get_available_class_types_by_class_name_query % class_name,
-                                               con=SQA_CONN_PUB)
+        df_available_class_types = perform_query(mode=MODE, looking_for='class_types',
+                                                 class_name=class_name, con=sqa_con)
         available_class_types = df_available_class_types['class_type'].values.tolist()
         if len(available_class_types) > 1:
             dispatcher.utter_message(
                 text=f"Which kind of class?",
-                buttons=[{"title": p, "payload": p} for p in available_class_types],
+                buttons=[{"title": CLASS_TYPES_DE_EN.get(p), "payload": p} for p in available_class_types],
             )
         elif len(available_class_types) == 1:
             # todo: Slot is set, but what is the intent or action?
             class_type = available_class_types[0]
+            print('in action_ask_class_type class type is', class_type)
             message = choose_action(tracker, class_name, class_type, weekday)
             dispatcher.utter_message(text=message)
             # df = pd.read_sql(get_class_start_time_query % (class_name, available_class_types[0]), con=SQA_CONN_PUB)
@@ -248,13 +271,20 @@ class ActionGetAnswer(Action):
 def return_class_start_time(class_name, class_type, weekday) -> Text:
     print('start return_class_start_time')
     message = ''
-    query = get_class_start_time_query % (class_name, class_type)
+    weekday_string = ''
     if weekday is not None:
-        query += add_weekday_query % WEEKDAYS_EN_DE.get(weekday)
-    df = pd.read_sql(query, con=SQA_CONN_PUB)
-    print(query)
+        weekday = WEEKDAYS_EN_DE.get(weekday)
+        weekday_string = 'on ' + weekday
+    df = perform_query(mode=MODE, looking_for='start_time', class_name=class_name,
+                       class_type=class_type, weekday=weekday, con=sqa_con)
+    if df.empty:
+        class_type_string = '' if class_type is None else class_type
+        message = f"I'm sorry, there is no data about the starting time of the {class_type_string} {class_name}"
+        message += weekday_string
     for i, row in df.iterrows():
         if row['week_day'] is not None:
+            print('the class type is', class_type)
+            print('the class type in english is', CLASS_TYPES_DE_EN.get(class_type))
             message += f"The {CLASS_TYPES_DE_EN.get(class_type)} {class_name} starts at {row['start_time']} " \
                        f"on {WEEKDAYS_DE_EN.get(row['week_day'])}."
     print('the message is', message)
@@ -263,9 +293,17 @@ def return_class_start_time(class_name, class_type, weekday) -> Text:
 
 def return_class_lecturer(class_name, class_type) -> Text:
     print('start return_class_lecturer')
-    df = pd.read_sql(get_lecturer_query % (class_name, class_type), con=SQA_CONN_PUB)
+    df = perform_query(mode=MODE, looking_for='lecturer', class_name=class_name,
+                       class_type=class_type, con=sqa_con)
+    if df.iloc[0]['lecturer'] is None:
+        print('lecturer is None')
+    print(df.iloc[0]['lecturer'] is None)
     if not df.empty:
-        message = f"The lecturer of the {CLASS_TYPES_DE_EN.get(class_type)} {class_name} is {df.iloc[0]['lecturer']}."
+        if df.iloc[0]['lecturer'] is None:
+            message = f"I'm sorry there is no information about the lecturer of the' {CLASS_TYPES_DE_EN.get(class_type)} " \
+                      f"{class_name} in the database."
+        else:
+            message = f"The lecturer of the {CLASS_TYPES_DE_EN.get(class_type)} {class_name} is {df.iloc[0]['lecturer']}."
     else:
         message = f"I can't find the {CLASS_TYPES_DE_EN.get(class_type)} {class_name} in the database."
     return message
@@ -273,10 +311,10 @@ def return_class_lecturer(class_name, class_type) -> Text:
 
 def return_class_location(class_name, class_type, weekday) -> Text:
     print('start return_class_location')
-    query = get_location_query % (class_name, class_type)
     if weekday is not None:
-        query += add_weekday_query % weekday
-    df = pd.read_sql(query, con=SQA_CONN_PUB)
+        weekday = WEEKDAYS_EN_DE.get(weekday)
+    df = perform_query(mode=MODE, looking_for='location', class_name=class_name,
+                       class_type=class_type, weekday=weekday, con=sqa_con)
     if not df.empty:
         message = f"The {CLASS_TYPES_DE_EN.get(class_type)} {class_name} takes place in {df.iloc[0]['room']} {df.iloc[0]['floor'].strip()}," \
                   f"{df.iloc[0]['building']}, {df.iloc[0]['facility']}. The address is {df.iloc[0]['address']}."
@@ -287,8 +325,7 @@ def return_class_location(class_name, class_type, weekday) -> Text:
 
 def return_exam_type(class_name) -> Text:
     print('start return_exam_type')
-    query = get_exam_info % class_name
-    df = pd.read_sql(query, con=SQA_CONN_PUB)
+    df = perform_query(mode=MODE, looking_for='class_is_about', class_name=class_name, con=sqa_con)
     if not df.empty:
         message = strip_tags(df.iloc[0]['txt'])
     else:
@@ -298,8 +335,7 @@ def return_exam_type(class_name) -> Text:
 
 def return_class_is_about(class_name, tracker) -> Text:
     print('start return_class_is_about for class name ', class_name)
-    query = get_class_is_about.format(class_name=class_name)
-    df = pd.read_sql(query, con=SQA_CONN_PUB)
+    df = perform_query(mode=MODE, looking_for='class_is_about', class_name=class_name, con=sqa_con)
     if not df.empty:
         context = strip_tags(df.iloc[0]['txt'])
         question = tracker.latest_message['text']
@@ -313,8 +349,9 @@ def return_class_moodle_link(class_name, class_type, weekday) -> Text:
     print('start return_class_moodle_link')
     query = get_moodle_link_query % (class_name, class_type)
     if weekday is not None:
-        query += add_weekday_query % weekday
-    df = pd.read_sql(query, con=SQA_CONN_PUB)
+        weekday = WEEKDAYS_EN_DE.get(weekday)
+    df = perform_query(mode=MODE, looking_for='moodle_link', class_name=class_name,
+                       class_type=class_type, weekday=weekday, con=sqa_con)
     if not df.empty:
         if df.iloc[0]['hyperlink'] is not None:
             message = f"The moodle link for the {CLASS_TYPES_DE_EN.get(class_type)} {class_name} is {df.iloc[0]['hyperlink']}."
@@ -371,85 +408,4 @@ def qa(question, answer_text, model, tokenizer):
     # Combine the tokens in the answer and print it out.""
     answer = answer.replace("#", "")
 
-    return answer
-
-
-class ActionGetLecturer(Action):
-    def name(self) -> Text:
-        return "action_get_lecturer"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        class_name = None
-        class_type = None
-        for blob in tracker.latest_message['entities']:
-            print(tracker.latest_message)
-            if blob['entity'] == 'class_name':
-                class_name = blob['value']
-            elif blob['entity'] == 'class_name':
-                class_type = blob['class_type']
-        if class_name in CLASS_NAMES:
-            df = pd.read_sql(get_lecturer_query, con=SQA_CONN_PUB)
-            dispatcher.utter_message(text=f"The lecturer of the {class_type} {class_name} is {df.iloc[0]['lecturer']}")
-        else:
-            dispatcher.utter_message(
-                text=f"I do not recognize {class_name}, are you sure it is correctly spelled?")
-        return []
-
-
-class ActionGetMoodleLink(Action):
-    def name(self) -> Text:
-        return "action_get_moodle_link"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        for blob in tracker.latest_message['entities']:
-            print(tracker.latest_message)
-            if blob['entity'] == 'class_name':
-                name = blob['value']
-                if name in CLASS_NAMES:
-                    df = pd.read_sql('Select * from test_table', con=SQA_CONN_PUB)
-                    dispatcher.utter_message(text=f"Yes, {name} is a class name. Find it under {df.iloc[0]['a']}")
-                else:
-                    dispatcher.utter_message(
-                        text=f"I do not recognize {name}, are you sure it is correctly spelled?")
-        return []
-
-
-class ActionHelloWorld(Action):
-
-    def name(self) -> Text:
-        return "action_hello_world"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="Hello World!")
-
-        return []
-
-
-def qa(question, answer_text, model, tokenizer):
-    inputs = tokenizer.encode_plus(question, answer_text, add_special_tokens=True, return_tensors="pt")
-    input_ids = inputs["input_ids"].tolist()[0]
-
-    text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
-    outputs = model(**inputs)
-    answer_start_scores = outputs.start_logits
-    answer_end_scores = outputs.end_logits
-
-    answer_start = torch.argmax(
-        answer_start_scores
-    )  # Get the most likely beginning of answer with the argmax of the score
-    answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
-
-    answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
-
-    # Combine the tokens in the answer and print it out.""
-    answer = answer.replace("#", "")
-
-    print(f"Question: {question}")
-    print(f"Answer: {answer}")
     return answer
