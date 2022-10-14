@@ -132,6 +132,9 @@ nlu:
     - What time does [APA](class_name) start?
     - what time does [BADS](class_name) start?
     - what time does [Zahlentheorie](class_name) start?
+    - what time does [Zahlentheorie](class_name) start on [thu](weekday)?
+    - what time does [Kleine Spiele](class_name) start on [Tuesday](weekday)?
+    - what time does the [language course](class_type) [Dännisch II](class_name) start on [monday](weekday)?
     - What time does the [lecture](class_type) [APA](class_name) start?
     - What time does the [exercise](class_type) [BADS](class_name) start?
     - What time does the [exercise](class_type) [Zahlentheorie](class_name) start?
@@ -140,11 +143,15 @@ nlu:
     - When does the [seminar](class_type) [BADS](class_name) start?
     - When is the [seminar](class_type) [Social preferences](class_name) taking place?
     - When is the [lecture](class_type) [Information Systems](class_name) taking place?
+    - When is the [lecture](class_type) [Information Systems](class_name) taking place on [Thursday](weekday)?
     - When is the [lecture](class_type) [VL Grundlagen der Fachdidaktik - Grundschule](class_name) taking place?
     - When does the [lecture](class_type) [CACI](class_name) start?
-    - When does the [seminar](class_type) [CACI](class_name) start?
+    - When does the [seminar](class_type) [CACI](class_name) start on [thu](weekday)?
     - When does the [Information Systems](class_name) [exercise](class_type) start on [Thursday](weekday)?
     - When does the [APA](class_name) [seminar](class_type) start?
+    - When does the [Hindi-Konversation](class_name) [seminar](class_type) start on [mon](weekday)?
+    - When does the [Bodenprozesse](class_name) [seminar](class_type) start on [Wednesday](weekday)?
+    - When does the [Deep Learning for Semantics](class_name) [ground seminar](class_type) start on [fri](weekday)?
     - When does the [Einführung in das Politische System der Bundesrepublik Deutschland](class_name) [seminar](class_type) start?
     - When is the [Social preferences](class_name) [seminar](class_type) taking place?
     - When is the [Pedagogic Grammar](class_name) [lecture](class_type) taking place?
@@ -153,6 +160,8 @@ nlu:
     - When does the [Zahlentheorie](class_name) [seminar](class_type) start?
     - Start time [information systems](class_name) [seminar](class_type)
     - Start time [Statistik](class_name)?
+    - Start time [Analysis II](class_name) [monday](weekday)?
+    - start time [Kleine Spiele](class_name) [exercise](class_type) [Wednesday](weekday)
     - start time [Humanbiologie](class_name) [exercise](class_type)
     - start time [seminar](class_type) [English Syntax](class_name) [Tuesday](weekday)
     - Starttime [English Syntax](class_name)
@@ -166,8 +175,9 @@ nlu:
     - What time does the [Litauisch](class_name) [language course](class_type) start?
     - What is the start of [lecture](class_type) [Zahlentheorie](class_name)?
     - When does the course [Topologie I](class_name) start on [Friday](weekday)?
-    - When does the [Semantik](class_name) [lecture](class_type) start?
+    - When does the [Semantik](class_name) [lecture](class_type) start on [Monday](weekday)?
     - when does [Urban Theory](class_name) begin?
+    - when does [Urban Theory](class_name) begin [tue](weekday)?
     - when does the [exercise](class_type) of [Große Spiele](class_name) begin on [Friday](weekday)?
     - When the [lecture](class_type) [Zahlentheorie](class_name) starts?
     - [Seminar](class_type) [Game Theory](class_name) starting time
@@ -177,7 +187,7 @@ nlu:
     - At what time does the [lecture](class_type) start on [Tuesday](weekday)? 
     - At what time does the [exercise](class_type) [Mathematik II](class_type) start
     - At what hour of the day does [IS](class_name) start?
-- intent: ask_exam_type
+- intent: out_of_scope
   examples: |
     - [information systems](class_name) [seminar](class_type) exam type
     - [Morphologie](class_name) exam type?
@@ -222,6 +232,59 @@ nlu:
     - In which form will the [Marketing Management](class_name) exam be for Summer 2022?
     - Exam [Frankophonie](class_name)
     - Exam format of [Grammatica](class_name)?
+- intent: ask_open_question
+  examples: |
+    - [information systems](class_name) [seminar](class_type) summary
+    - [Morphologie](class_name) summary?
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) topics 
+    - [Urban Theory](class_name) topic
+    - Hey, what is the class [behavioural economics](class_name) about?
+    - What is the [seminar](class_type) [Humanbiologie](class_name) about?
+    - What's the class [Mathematik II](class_name) about?
+    - Class info [Einführung in das Politische System der Bundesrepublik Deutschland](class_name)
+    - What is the class [IS](class_name) going to be about?
+    - Is the [lecture](class_type) [Information Systems](class_name) for all students?
+    - Who is the target group for the class [IS](class_name)?
+    - Who is the the [seminar](class_type) [Einführung in das Politische System der Bundesrepublik Deutschland](class_name) intended for?
+    - Which target group is the [seminar](class_type) [IS](class_name) for?
+    - For who is [Wissen und seine Ressourcen](class_name)?
+    - For which students is the [seminar](class_type)?
+    - For who is [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - For which students is the [Analysis II](class_name) class intended?
+    - What is the main objective of [Mathematik II](class_name)?
+    - What will I learn in [Social Hydrology](class_name)
+    - What is the topic of [Mathematik II](class_name)
+    - What's the topic of [Advanced Data Analytics for Management Support](class_name)
+    - Do I have to register for this class?
+    - Do I have to register for the class [Humanbiologie](class_name)
+    - Until when should I register for my class?
+    - Until when should I register for this class?
+    - Until when should I register for that class?
+    - Until when should I register for [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - Until when should I register for the course [Accouting Theory and Earnings Management](class_name)?
+    - Until when should I register for the class [Sentimental Fiction](class_name)?
+    - Until when should I register for the [lecture](class_type) [Social Hydrology](class_name)?
+    - Until when should I apply for this class?
+    - Until when should I apply for the class [Sentimental Fiction](class_name)?
+    - Until when should I apply for the [seminar](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - Do I have to apply for the [seminar](class_type) [Introduction to Linguistics](class_name)?
+    - Do I have to apply for the [main seminar](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - Do I have to apply for the [language course](class_type)?
+    - Should I apply for the [seminar](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - Should I apply for the class [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
+    - Should I apply for the course [Ökologie für Vollmodul Bio10 V](class_name)?
+    - Should I register for the [colloquium](class_type) [Psycholinguistik](class_name)?
+    - When does the registration open for the [colloquium](class_type) [Psycholinguistik](class_name)?
+    - Is the registration for the [language course](class_type) [Arabisch IV](class_name) open?
+    - Is the registration for the course [Schriftlicher Ausdruck B1](class_name) open?
+    - Is the registration for the class [Struktur von Proteinen](class_name) open?
+    - Is the registration for the [lecture](class_type) [Arabisch IV](class_name) open?
+    - Should I register for the [master seminar](class_type) [Masterseminare Fachdidaktik](class_name)?
+    - [Masterseminare Fachdidaktik] registration deadline
+    - [Finnisch 2](class_name) registration
+    - [Frankophonie](class_name) [senior seminar](class_type) registration
+    - [Struktur von Proteinen](class_name) [ground course](class_type) application 
+    - [Statistik I](class_name) [ground course](class_type) application deadline
 - intent: ask_class_lecturer
   examples: |
     - lecturer?
@@ -231,7 +294,7 @@ nlu:
     - lecturer [Accouting Theory and Earnings Management](class_name)
     - lecturer of [Semantik](class_name)
     - [Schreiblabor](class_name) lecturer?
-    - [Frankophonie](class_name) [lecture](class_type lecturer?
+    - [Frankophonie](class_name) [lecture](class_type) lecturer?
     - [Business Analytics](class_name) professor
     - Professor [Happily ever after. Erzählungen von Ehe zwischen Gefühl und Kalkül](class_name)
     - Professor [Information Systems](class_name)
@@ -266,7 +329,7 @@ nlu:
     - [Morphologie](class_name) teacher
     - Wer unterrichtet [Humanbiologie](class_name)
     - Wer unterrichtet [RNA Biologie](class_name) [vorlesung](class_type)
-    - Wer ist der Professor/die Professorin, der die [Vorlesung](class_type) [Topologie I](class_name) leiten wird?
+    - Wer ist der Professor/die Professorin, der die [Vorlesung](class_type) [Biophysik der Photosynthese](class_name) leiten wird?
 - intent: ask_which_semester_class_takes_place
   examples: |
     - 2022 sose [ADAMS](class_name)
@@ -344,33 +407,43 @@ nlu:
     - Where [Research Practice](class_name)
     - [Morphologie](class_name) [Seminar](class_type) place on [Wednesday](weekday)
     - Where is the [language course](class_type) [Litauisch](class_name) taking place
+    - Where is the [main course](class_type) [Bedeutungswandel](class_name) taking place on [thursday](weekday)
+    - Where is the [ground seminar](class_type) [Kleine Spiele](class_name) taking place
+    - Where is the [language course](class_type) [Grammatica](class_name) taking place on [wednesday](weekday)
     - place for [Accouting Theory and Earnings Management](class_name)
     - [BADS](class_name) location on [Wednesday](weekday)
     - Where is class [Written Academic Discourse: Writing and Revising the Essay](class_name) taking place?
     - Where is the [lecture](class_type) [Mathematik II](class_name)?
     - Where does the [Sanskrit II](class_name) [lecture](class_type) take place on [Wednesday](weekday)?
     - Which classroom is [Urban Theory](class_name) in?
+    - [Statistik II](class_name) [exercise](class_type) location on [Monday](weekday)
+    - [Statistik II](class_name) [exercise](class_type) location [wed](weekday)
     - [Statistik II](class_name) [exercise](class_type) location
     - Where does [APA](class_name) take place? 
     - Where does the [Analysis II](class_name) [seminar](class_type) take place 
     - Where do I have to go for the [language course](class_type) [Spanish 2](class_name)
-    - Where does the [GLUD](class_name) [lecture](class_type) take place? 
+    - Where does the [GLUD](class_name) [lecture](class_type) take place on [wednesday](weekday)? 
+    - Where does the [GLUD](class_name) [lecture](class_type) take place?
+    - Where does the [GLUD](class_name) [lecture](class_type) take place on [thu](weekday)? 
     - Where is [Grammaire et traduction](class_name)
     - [APA](class_name) [seminar](class_type) location on [Thursday](weekday)
     - where does the [exercise](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name) take place
+    - where does the [ground course](class_type) [Language Change](class_name) take place
+    - where does the [practical seminar](class_type) [Morphologie](class_name) take place on [Thursday](weekday)
+    - where does the [lecture](class_type) [Sanskritt II](class_name) take place [wednesdays](weekday)
     - Where will this course [Arithmetische Geometrie](class_name) taking place? 
-    - please tell me where does  [statistics 1](class_name) [exercise](class_type) (on monday 10pm) take place
+    - please tell me where does  [statistics 1](class_name) [exercise](class_type) on [monday](weekday) take place
     - In welchem Raum findet die Vorlesung [Wissen und seine Ressourcen](class_name) statt?
     - Where is [Information Systems](class_name) taking place on [Monday](weekday)?
     - In which building/room is the [Marketing Management] [lecture](class_type) on Tuesdays?
-    - where is my lecture taking place?
+    - where is my lecture taking place on [Thu](weekday)?
     - place [language course](class_type) [Russian A1](class_name)
     - Place of [lecture](class_type) of [Grammaire et traduction](class_name)
 - intent: ask_class_zoom_link
   examples: |
     - Zoom link to [Pedagogic Grammar](class_name)?
     - zoom link [information systems[(class_name) [seminar](class_type)
-    - He, can you please give me the link to the zoom session for the class [behavioural economics](class_name) ?
+    - He, can you please give me the link to the zoom session for the class [Biophysik der Photosynthese](class_name) ?
     - [Adams](class_name) zoom link
     - What’s the zoom link of [information systems](class_name)?
     - What is the Zoom link for [Mathematik](class_name) class?
@@ -396,18 +469,19 @@ nlu:
     - Zoom Link [Information Systems](class_name)
     - Zoom link [IS](class_name) [seminar](class_type)
     - Zoom link to that class
+    - Zoom link to my class
     - zoom link [Accouting Theory and Earnings Management[(class_name)
     - [Social preferences](class_name) zoom link
     - What's the zoom link to class [Litauisch](class_name)?
     - Can you give me the zoom link for [Statistik I](class_name) [lecture](class_type)?
-    - What is the zoom link for the [Mathematik II](class_name) [lecture](class_type)?
+    - What is the zoom link for the [Historische Textanalyse](class_name) [lecture](class_type)?
     - Zoom Link [Produzione scritta: Vorbereitung auf den MAP-Aufsatz](class_name)
     - Share the zoom link
     - [Mapping social inequalities](class_name) online class zoom link
     - Give me the zoom link to [Syntax](class_name)
     - Give me the zoom link to the [Kleine Spiele](class_name) [lecture](class_type)
     - Is there a zoom link for this course?
-    - Can you provide me with the zoom link for [GLUD](class_name) online class?
+    - Can you provide me with the zoom link for [Biophysik der Photosynthese](class_name) online class?
     - What’s the zoom link
     - Can i have the zoom link for [Topologie I](class_name)?
     - what’s the zoom link to the class
@@ -424,7 +498,7 @@ nlu:
     - moodle link to [Pedagogic Grammar](class_name)?
     - moodle link [information systems[(class_name) [seminar](class_type)
     - Hey, can you please give me the link to the moodle session for the class [behavioural economics](class_name) ?
-    - [Adams](class_name) moodle link
+    - [Historische Textanalyse](class_name) moodle link
     - What’s the moodle link of [information systems](class_name)?
     - What is the moodle link for [Mathematik](class_name) class on [Monday](weekday)?
     - share the moodle link for [Psychiatrische Narrative und Schreibweisen](class_name)
@@ -447,17 +521,17 @@ nlu:
     - moodle Link?
     - moodle link of [Zahlentheorie](class_name)?
     - moodle Link [Information Systems](class_name)
-    - moodle link [IS](class_name) [seminar](class_type)
+    - moodle link [Historische Textanalyse](class_name) [seminar](class_type)
     - moodle link to that class
     - moodle link [Accouting Theory and Earnings Management[(class_name)
-    - [Social preferences](class_name) moodle link
+    - [Biophysik der Photosynthese](class_name) moodle link
     - What's the moodle link to class [Litauisch](class_name) on [Wednesday](weekday)?
     - Can you give me the moodle link for [Statistik I](class_name) [lecture](class_type)?
     - What is the moodle link for the [Mathematik II](class_name) [lecture](class_type)?
     - moodle Link [Produzione scritta: Vorbereitung auf den MAP-Aufsatz](class_name)
     - Share the moodle link
     - [Mapping social inequalities](class_name) online class moodle link
-    - Give me the moodle link to [Syntax](class_name) on [Monday](weekday)
+    - Give me the moodle link to [Historische Textanalyse](class_name) on [Monday](weekday)
     - Give me the moodle link to the [Kleine Spiele](class_name) [lecture](class_type)
     - Is there a moodle link for this course?
     - Can you provide me with the moodle link for [GLUD](class_name) online class?
@@ -472,23 +546,7 @@ nlu:
     - can you give me the link to the online class?
     - moodle link [lecture](class_type) [BADS](class_name)
     - moodle link of [Business Analytics](class_name)
-- intent: ask_class_is_about
-  examples: |
-    - [information systems](class_name) [seminar](class_type) summary
-    - [Morphologie](class_name) summary?
-    - [The Interwar Years: Democracy, Politics and Gender](class_name) topics 
-    - [Urban Theory](class_name) topic
-    - Hey, what is the class [behavioural economics](class_name) about?
-    - What is the [seminar](class_type) [Humanbiologie](class_name) about?
-    - What's the class [Mathematik II](class_name) about?
-    - Class info [Einführung in das Politische System der Bundesrepublik Deutschland](class_name)
-    - What is the class [IS](class_name) going to be about?
-    - Is the [lecture](class_type) [Information Systems](class_name) for all students?
-    - Who is the target group for the class [IS](class_name)?
-    - What is the main objective of [Mathematik II](class_name)?
-    - What will I learn in [Social Hydrology](class_name)
-    - What is the topic of [Mathematik II](class_name)
-    - What's the topic of [Advanced Data Analytics for Management Support](class_name)
+
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -507,22 +565,109 @@ nlu:
     - [language course](class_type)
     - [language class](class_type)
     - [Sprachkurs](class_type)
+    - [lecture](class_type) for [Marketing Management](class_name)
+    - [Topologie I](class_name)
+    - [Mathematik II](class_name) [lecture](class_type)
+    - [Statistik I](class_name) [seminar](class_type)
+    - [Litauisch](class_name) on [Wednesday](weekday)
+    - [Historische Textanalyse](class_name) [seminar](class_type)
+    - [Urban Theory](class_name)
+    - [Grammaire et traduction](class_name) class on [Friday](weekday)
+    - [Psychiatrische Narrative und Schreibweisen](class_name)
+    - [information systems[(class_name) [seminar](class_type)
+    - [Seminar](class_type) [English Syntax](class_name)
+    - [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
+    - [Statistik I](class_name) [ground course](class_type) 
+    - [master seminar](class_type) [Masterseminare Fachdidaktik](class_name)
+    - [Schriftlicher Ausdruck B1](class_name)
+    - [language course](class_type) [Arabisch IV](class_name) 
+    - [colloquium](class_type) [Psycholinguistik](class_name)
+    - [senior seminar](class_type) [Psycholinguistik](class_name)
+    - [Game Theory](class_name)
+    - [Große Spiele](class_name)
+    - [Kleine Spiele](class_name)
+    - [Analysis II](class_name)
+    - [Arabisch II](class_name)
+    - [Arabisch IV](class_name)
+    - [Basiskompetenz](class_name)
+    - [Bedeutungswandel](class_name)
+    - [Bodenprozesse](class_name)
+    - [Dänisch 2](class_name)
+    - [Das Wort](class_name)
+    - [Digitale Systeme](class_name)
+    - [DMS4_Gesundheit](class_name)
+    - [DMS4_Integration](class_name)
+    - [DMS4_Trend](class_name)
+    - [English Syntax](class_name)
+    - [Essay Composition](class_name)
+    - [Expression écrite](class_name)
+    - [Finnisch 2](class_name)
+    - [Finnisch 4](class_name)
+    - [Frankophonie](class_name)
+    - [Game Theory](class_name)
+    - [Grammaire](class_name)
+    - [Grammatica](class_name)
+    - [Große Spiele](class_name)
+    - [Hindi IV](class_name)
+    - [Humanbiologie](class_name)
+    - [Immersive Medien](class_name)
+    - [Isländisch 2](class_name)
+    - [Isländisch 4](class_name)
+    - [Kleine Spiele](class_name)
+    - [Language Change](class_name)
+    - [Lektüreübung](class_name)
+    - [Litauisch](class_name)
+    - [Masterkolloquium](class_name)
+    - [Mathematik II](class_name)
+    - [Middle English](class_name)
+    - [Mikroökonomie II](class_name)
+    - [Modernist Poetry](class_name)
+    - [Morphologie](class_name)
+    - [Morphology](class_name)
+    - [Nordeuropa 1977](class_name)
+    - [Norwegisch 2](class_name)
+    - [Pedagogic Grammar](class_name)
+    - [Pragmatics](class_name)
+    - [Praxiscolloquium](class_name)
+    - [Praxiskolloquium](class_name)
+    - [Probeexamen](class_name)
+    - [Propädeutikum B1](class_name)
+    - [Psycholinguistics](class_name)
+    - [Public Economics](class_name)
+    - [Research Practice](class_name)
+    - [RNA Biologie](class_name)
+    - [Rückschlagspiele](class_name)
+    - [Sanskrit II](class_name)
+    - [Schreiblabor](class_name)
+    - [Schwedisch 2](class_name)
+    - [Semantics](class_name)
+    - [Semantik](class_name)
+    - [Slavery on Screen](class_name)
+    - [Social Hydrology](class_name)
+    - [Sociolinguistics](class_name)
+    - [Statistik](class_name)
+    - [Statistik I](class_name)
+    - [Statistik II](class_name)
+    - [Stochastik I](class_name)
+    - [Swahili II](class_name)
+    - [Swahili IV](class_name)
+    - [Syntax](class_name)
+    - [Tekstproduktion](class_name)
+    - [Tekstreception](class_name)
+    - [Textlektüre A2/B1](class_name)
+    - [Topologie I](class_name)
+    - [Tutorium](class_name)
+    - [Tutorium Syntax](class_name)
+    - [Urban Theory](class_name)
+    - [Urdu II](class_name)
+    - [Vorbereitung SPR](class_name)
+    - [Zahlentheorie](class_name)
 #- intent: nlu_fallback
 #  examples: |
 #    - [lecture]{"entity": "class", "role": "class_type"}
 #- intent: start_time_lecture
 #  examples: |
 #    - [lecture]{"entity": "class", "role": "class_type"}
-
-- synonym: bads
-  examples: |
-    - BADS
-    - Business Analytics and Data Science
-- synonym: IS
-  examples: |
-    - Information systems
-    - Information system
-    - IS
 - lookup: weekday
   examples: |
     - Monday
@@ -541,16 +686,6 @@ nlu:
     - Fri
     - Sat
     - Sun
-- lookup: class_name
-  examples: |
-    - Information Systems
-    - Data Analysis
-    - ADAMS
-    - BADS
-    - Social preferences
-    - Spanish B1
-    - CACI
-    - APA
 - lookup: class_type
   examples: |
     - lecture
@@ -569,69 +704,230 @@ nlu:
     - s
     - sem
     - Seminar
+    - Grundkurs
+    - Sprachkurs
+    - language course
+    - ground course
+    - Basiskurse
+    - Colloquium
+    - Forschungsseminar
+    - main seminar
+    - Hauptseminar
+    - Integrierter Theorie- und Praxiskurs
+    - Klausurenkurs
+    - Kolloquium
+    - Masterseminar
+    - Oberseminar
+    - Praktikum
+    - practice
+    - Praxisorientierte Lehrveranstaltung
+    - Projektseminar
+    - Proseminar
+    - Seminar/Hauptseminar
+    - Seminar/Proseminar
+    - Studienprojekt
+    - Tutorium
+    - Vertiefungskurse
+    - Vorlesung/Grundkurs
+    - Vorlesung/Übung
 - lookup: class_name
   examples: |
-    - CACI
-    - BADS
-    - APA
-    - Business Analytics
-    - Social preferences
+    - A History of Cartoons
+    - Aktuelle debatter i Norge
+    - Analysis II
     - Analysis II (ÜWP)
     - Analysis II*
-    - Arithmetische Geometrie (M6)
-    - Einführung in das Politische System der Bundesrepublik Deutschland
-    - Einführung in die skandinavistische Sprachwissenschaft
-    - Grammaire et traduction
-    - Happily ever after. Erzählungen von Ehe zwischen Gefühl und Kalkül
-    - Italiam! Italiam! &#8211; Italien in der französischen Literatur
-    - Mapping social inequalities: Introduction to GIS software and spatial data (ÜWP)
-    - Ökologie für Vollmodul Bio10 V
-    - Pedagogic Grammar
-    - Produzione scritta: Vorbereitung auf den MAP-Aufsatz
-    - Psychiatrische Narrative und Schreibweisen
-    - Research Practice
-    - Russisch: Diskussions- und Schreibkurs (für Nichtmuttersprachler*innen)
-    - Textproduktion: Språk i kontext
-    - The Interwar Years: Democracy, Politics and Gender
-    - VL Grundlagen der Fachdidaktik - Grundschule
-    - Vorbereitung des berufsfelderschließenden Praktikums:Bildungseinstellungen und Bildungserfolge
-    - Written Academic Discourse: Writing and Revising the Essay
-    - Zahlentheorie
-    - Semantik
-    - Morphologie
-    - Das Wort
-    - Litauisch
-    - Syntax
-    - Statistik I
-    - Urban Theory
-    - Semantics
-    - Mathematik II
-    - Sanskrit II
-    - Analysis II
-    - Stochastik I
-    - Frankophonie
-    - Statistik
-    - Grammatica
-    - Schreiblabor
+    - Analysis II* (ÜWP)
+    - Angewandte Mathematik I
+    - Angewandte Mathematik II
+    - Arabisch II
+    - Arabisch IV
+    - Basiskompetenz
+    - Bedeutungswandel
+    - Bewegung und Gesundheit
+    - Biodiversität von Parasiten
+    - Biophysik der Photosynthese
     - Bodenprozesse
+    - Cell Biology of parasites
+    - Cell Biology of Parasites
+    - Chaucer and Shakespeare
+    - Classroom Discourse
+    - CO Abschlusscolloquium
+    - Colloquium zur Masterarbeit
+    - Consecutive Interpreting II
+    - Crónicas de Indias
+    - Dänisch 2
+    - Das Urindogermanische
+    - Das Wort
+    - Deep Learning for Semantics
+    - Demokratietheorie (ÜWP)
+    - Deutsch im Sprachkontakt
+    - Deutsche Grammatik
+    - Didaktik der Stochastik
+    - Digitale Systeme
+    - Digitale Systeme - ÜWP
+    - DMS4_Gesundheit
+    - DMS4_Integration
     - DMS4_Trend
-    - Große Spiele
-    - Statistik II
-    - Topologie I
-    - Kleine Spiele
-    - Pragmatics
-    - Humanbiologie
-    - Tekstresepsjon
-    - RNA Biologie
-    - Game Theory
+    - Ebenen der Textanalyse
+    - Einführung in die Statistik
+    - Einführung ins Altnordische
+    - English Historical Syntax
     - English Syntax
-    - Morphology
-    - Tekstreception
+    - Esercizi di scrittura
+    - Essay Composition
+    - Experimental Pragmatics
+    - Expression écrite
+    - Facktext och textreception
+    - Fictions of Addiction
+    - Finnisch 2
+    - Finnisch 4
+    - Flauberts Mythofiktionen
+    - Frankophonie
+    - Frühneuhochdeutsch
+    - FS Algebraische Geometrie
+    - FS Angewandte Analysis
+    - FS Arithmetische Geometrie
+    - FS Numerische Mathematik
+    - Game Theory
+    - Generalized Regression
+    - Genre, Register and Style
+    - Grammaire
+    - Grammaire et traduction
+    - Grammar in the Classroom
+    - Grammatica
+    - Grammatik des Dänischen
+    - Grammatik des Norwegischen
+    - Grammatik des Schwedischen
+    - Große Spiele
+    - Große Spiele (Handball)
+    - Große Spielsportart
+    - Grundkurs Linguistik
+    - Grundkurs Spracherwerb A 1
+    - Hindi-Konversation
+    - Hindi IV
+    - Historische Textanalyse
+    - Humanbiologie
+    - Immersive Medien
+    - Industrial Organization
+    - Integration und Sport
+    - Intercultural Textuality
+    - Introduction to Linguistics
+    - Isländisch 2
+    - Isländisch 4
+    - Italo Calvinos Erzählungen
+    - Kleine Spiele
+    - Kolloquium Psycholinguistik
+    - Kommunikation bei Tieren
+    - Kreatives Schreiben
+    - La generación del 98
+    - Language Change
+    - Leistungssportmedizin
+    - Lektüreübung
+    - Litauisch
+    - Literarische Resonanzen
+    - Llengua catalana II (A2)
+    - Llengua catalana III (B1.2)
+    - Masterkolloquium
+    - Masterseminar Grundschule
+    - Masterseminare Fachdidaktik
+    - Mathematik II
+    - Mediazione linguistica
     - Middle English
-    - Social Hydrology
-    - Advanced Data Analytics for Management Support
-    - Finanzierung und Investition
     - Mikroökonomie II
+    - Modernist Poetry
+    - Modul 09: VL Diagnostik
+    - Morphologie
+    - Morphology
+    - Mündlicher Ausdruck (A2)
+    - Non-Fiction Writing
+    - Nordeuropa 1977
+    - Norwegisch 2
+    - Oral Skills: Debating
+    - Organisation(en) im Sport
+    - Översättning av facktext
+    - Oversettelse norsk
+    - Parameterized Algorithms
+    - Partizipatives Design
+    - Pedagogic Grammar
+    - Peer-to-Peer-Systeme
+    - Phonetics & Phonology
+    - Pragmatics
+    - Pragmatik im Französischen
+    - Praxiscolloquium
+    - Praxiscolloquium BZQ
+    - Praxiskolloquium
+    - Probeexamen
+    - Propädeutikum B1
+    - Proseminare Alte Geschichte
+    - Psycholinguistics
+    - Public Economics
+    - Rekonstruktionsmethoden
+    - Research Practice
+    - RNA Biologie
+    - RNA Molekularbiologie
+    - Rückschlagspiele
+    - Russisch: Phonetik
+    - Samene - et urfolk i Norden
+    - Sanskrit II
+    - Schreiblabor
+    - Schriftlicher Ausdruck (A2)
+    - Schriftlicher Ausdruck B1
+    - Schwedisch 2
+    - Scientific Writing
+    - Semantics
+    - Semantik
+    - Seminar Inequalities
+    - Seminar Stochastik
+    - Seminar zur Algebra
+    - Sentimental Fiction
+    - Sex, Race and Taxes
+    - Sex, Race and Taxes (ÜWP)
+    - Shakespeares Tragedies
+    - Simulation Peer Review
+    - Slavery on Screen
     - Social Hydrology
+    - Sociolinguistics
+    - Soziolinguistische Methoden
+    - Sport und Leistung
+    - Sprachliche Kreativität
     - Statistical Inference II
-    - A History of Cartoons
+    - Statistik
+    - Statistik I
+    - Statistik II
+    - Stochastik I
+    - Struktur von Proteinen
+    - Swahili II
+    - Swahili IV
+    - Syntax
+    - Tekstproduksjon
+    - Tekstproduktion
+    - Tekstreception
+    - Tekstresepsjon
+    - Textlektüre A2/B1
+    - Thatchers Britain on Film
+    - The London Flaneur
+    - Think & Drink Colloquium
+    - Topologie I
+    - Traduction comparée
+    - Traduction: Titel folgt
+    - Traduzione dal Tedesco
+    - Tutorium
+    - Tutorium "Das Wort"
+    - Tutorium "Der Satz"
+    - Tutorium Syntax
+    - Tutorium zum GK Linguistik
+    - Tutorium zum GK Semantik
+    - Übersetzen Finnisch
+    - Übungen Humanbiologie
+    - Urban Theory
+    - Urban Theory (ÜWP)
+    - Urdu II
+    - ÜWP Große Spiele (Handball)
+    - ÜWP Leistungssportmedizin
+    - Vorbereitung SPR
+    - Vorbereitung SPR (GS)
+    - Wirtschaftsgeographie
+    - Wissenschaftliches Arbeiten
+    - Writing the Term Paper
+    - Zahlentheorie

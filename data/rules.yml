@@ -17,9 +17,33 @@ rules:
 #  - intent: start_time
 #  - action: action_get_start_time
 
-- rule: activate class name type form
+- rule: activate class name type form start time
   steps:
-    - intent: ask_class_start_time OR ask_class_lecturer OR ask_class_location OR ask_class_zoom_link OR ask_class_moodle_link
+    - intent: ask_class_start_time
+    - action: class_name_type_form
+    - active_loop: class_name_type_form
+
+- rule: activate class name type form lecturer
+  steps:
+    - intent: ask_class_lecturer
+    - action: class_name_type_form
+    - active_loop: class_name_type_form
+
+- rule: activate class name type form location
+  steps:
+    - intent: ask_class_location
+    - action: class_name_type_form
+    - active_loop: class_name_type_form
+
+- rule: activate class name type form open question
+  steps:
+    - intent: ask_open_question
+    - action: class_name_type_form
+    - active_loop: class_name_type_form
+
+- rule: activate class name type form moodle link
+  steps:
+    - intent: ask_class_moodle_link
     - action: class_name_type_form
     - active_loop: class_name_type_form
 
@@ -34,11 +58,11 @@ rules:
   - action: action_get_answer
   - action: action_restart
 
-- rule: activate class name form
-  steps:
-    - intent: ask_which_semester_class_takes_place OR ask_exam_type OR ask_class_is_about
-    - action: class_name_form
-    - active_loop: class_name_form
+#- rule: activate class name form
+#  steps:
+#    - intent: ask_open_question
+#    - action: class_name_form
+#    - active_loop: class_name_form
 
 - rule: submit class name form
   condition:
@@ -51,6 +75,17 @@ rules:
   - action: action_get_answer
   - action: action_restart
 
+- rule: out-of-scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - action: action_restart
+
+- rule: Tell the user the bot does not understand
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default
+  - action: action_restart
 
 #- rule: submit lecturer form
 #  condition:
