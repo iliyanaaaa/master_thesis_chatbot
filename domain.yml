@@ -22,8 +22,7 @@ intents:
   - ask_class_zoom_link
   - ask_class_moodle_link
   - ask_class_location
-  - ask_exam_type
-  - ask_class_is_about
+  - ask_open_question
   - stop
   - affirm
   - deny
@@ -47,7 +46,6 @@ actions:
   - utter_ask_continue
 #  - validate_simple_start_time_form
   - validate_class_name_type_form
-  - action_ask_vegetarian
   - action_ask_class_type
 
 #  - action_get_start_time_lecture
@@ -89,6 +87,10 @@ responses:
   - text: "I'm sorry, I didn't catch the name of the class. Could you write it down please?"
   utter_ask_class_type:
   - text: "Do you wanna know about the lecture, exercise or seminar?"
+  utter_out_of_scope:
+  - text: "I understand that you want to know the exam type of {class_name} but I can't handle that request yet. :("
+  utter_default:
+    - text: "I'm sorry, I'm just a little bot. I can't answer this question. :("
 
 slots:
 #  class_name:
@@ -145,16 +147,7 @@ slots:
     mappings:
       - type: from_entity
         entity: weekday
-  vegetarian:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: from_intent
-        value: true
-        intent: affirm
-      - type: from_intent
-        value: false
-        intent: deny
+
 
 forms:
 #  simple_start_time_form:
