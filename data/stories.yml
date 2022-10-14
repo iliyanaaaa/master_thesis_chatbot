@@ -16,8 +16,8 @@ stories:
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+#  - intent: affirm
+#  - action: utter_happy
 
 - story: sad path 2
   steps:
@@ -26,57 +26,491 @@ stories:
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - intent: deny
+
+- story: interactive_start_time_story_1
+  steps:
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: Zahlentheorie
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_class_start_time_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: User interrupts the start time form and doesn't want to continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: interactive_class_start_time_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
   - action: utter_goodbye
 
-- story: moodle link
+- story: interactive_class_start_time_story_3
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: moodle_link
-  - action: action_get_moodle_link
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: s
+  - slot_was_set:
+    - class_name: s
+  - slot_was_set:
+    - requested_slot: class_type
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: moodle link short
-  steps:
-  - intent: moodle_link
-  - action: action_get_moodle_link
-
-- story: start time
+- story: interactive_class_start_time_story_4
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - action: class_name_type_form
+  - slot_was_set:
+      - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: start time short
-  steps:
-  - intent: start_time
-  - action: action_get_start_time
 
-- story: does class exist
+- story: interactive_class_lecturer_story_1
   steps:
-  - intent: confirm_exists
-  - action: action_check_existence
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_lecturer
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - class_name: ADAMS
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: null
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - class_type: lecture
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
 
-- story: moodle link
+- story: interactive_class_lecturer_story_2
   steps:
-  - intent: moodle_link
-  - action: action_get_moodle_link
+  - intent: ask_class_lecturer
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: test 1
+- story: User interrupts the lecturer form and doesn't want to continue
   steps:
-  - intent: confirm_exists
-  - action: action_check_existence
-  - intent: start_time
-  - action: action_get_start_time
-  - intent: start_time
-  - action: action_get_start_time
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_lecturer
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
 
-- story: test 2
+- story: interactive_class_location_story_1
   steps:
-  - intent: start_time
-  - action: action_get_start_time
-  - intent: start_time
-  - action: action_get_start_time
-  - intent: confirm_exists
-  - action: action_check_existence
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_location
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: Humanbiologie
+  - slot_was_set:
+    - class_name: Humanbiologie
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: seminar
+  - slot_was_set:
+    - class_type: seminar
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_class_location_story_2
+  steps:
+  - intent: ask_class_location
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+
+- story: interactive_class_zoom_link_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_zoom_link
+    entities:
+      - class_name
+      - class_type
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: Written Academic Discourse
+  - slot_was_set:
+    - class_name: Written Academic Discourse
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: exercise
+  - slot_was_set:
+    - class_type: exercise
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_class_zoom_link_story_2
+  steps:
+  - intent: ask_class_zoom_link
+    entities:
+      - class_name
+      - class_type
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_class_moodle_link_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_class_moodle_link
+    entities:
+      - class_name
+      - class_type
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: Spanish
+  - slot_was_set:
+    - class_name: Spanish
+  - slot_was_set:
+    - requested_slot: class_type
+  - slot_was_set:
+    - class_type: language course
+  - slot_was_set:
+    - class_type: language course
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_class_moodle_link_story_2
+  steps:
+  - intent: ask_class_moodle_link
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_ask_open_question_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_open_question
+    entities:
+      - class_name
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - slot_was_set:
+    - class_name: behavioural economics
+  - active_loop: null
+  - action: action_get_answer
+  - action: action_restart
+
+- story: interactive_ask_open_question_story_2
+  steps:
+  - intent: ask_open_question
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - slot_was_set:
+    - requested_slot: class_name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User interrupts the lecturer form and doesn't want to continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_open_question
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or:
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
+#- story: start time lecture
+#  steps:
+#  - intent: start_time
+#  - action: action_get_answer
+#  - intent: start_time_lecture
+#  - action: action_get_answer_lecture
+
+#- story: start time
+#  steps:
+#  - intent: start_time
+#    entities:
+#    - class_type: lecture
+#  - slot_was_set:
+#    - class_type: lecture
+#  - slot_was_set:
+#    - class_type: exercise
+#  - slot_was_set:
+#    - class_type: seminar
+#  - action: utter_slots_values
+
+#- story: moodle link
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: moodle_link
+#  - action: action_get_moodle_link
+#
+#- story: moodle link short
+#  steps:
+#  - intent: moodle_link
+#  - action: action_get_moodle_link
+
+#- story: start time
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: start_time
+#  - action: get_start_time_form
+#  - active_loop: get_start_time_form
+#  - active_loop: null
+#
+#
+#- story: start time short
+#  steps:
+#  - intent: start_time
+#  - action: get_start_time_form
+#  - active_loop: get_start_time_form
+#  - active_loop: null
+#  - action: utter_slots_values
+#
+#
+#- story: start time short 2
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: start_time
+#  - action: get_start_time_form
+#  - active_loop: get_start_time_form
+#  - active_loop: null
+#  - action: utter_slots_values
+
+#- story: The user asks for the lecture start time
+#  steps:
+#    - intent: start_time
+#      entities:
+#        - class: APA
+#          role: class_name
+#        - class: lecture
+#          role: class_type
+#    - action: action_get_answer
+
+#- story: does class exist
+#  steps:
+#  - intent: confirm_exists
+#  - action: action_check_existence
+
+#- story: test 1
+#  steps:
+#  - intent: confirm_exists
+#  - action: action_check_existence
+#  - intent: start_time
+#  - action: action_get_answer
+#  - intent: start_time
+#  - action: action_get_answer
+#
+#- story: test 2
+#  steps:
+#  - intent: start_time
+#  - action: action_get_answer
+#  - intent: start_time
+#  - action: action_get_answer
+#  - intent: confirm_exists
+#  - action: action_check_existence
