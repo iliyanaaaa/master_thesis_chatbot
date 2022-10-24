@@ -6,20 +6,12 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
-#  - moodle_link
-#  - start_time
-#  - confirm_exists
-#  - lecturer
   - class_type_entry
-#  - start_time_exercise
-#  - start_time_lecture
   - start_time_seminar
-#  - inform_class_type
   - inform
   - ask_class_start_time
   - ask_class_lecturer
   - ask_which_semester_class_takes_place
-  - ask_class_zoom_link
   - ask_class_moodle_link
   - ask_class_location
   - ask_open_question
@@ -28,8 +20,6 @@ intents:
   - deny
 
 entities:
-#  - class:
-#      roles:
   - class_name
   - class_type
   - weekday
@@ -44,22 +34,12 @@ actions:
   - utter_submit
   - utter_class_slots
   - utter_ask_continue
-#  - validate_simple_start_time_form
   - validate_class_name_type_form
   - action_ask_class_type
-
-#  - action_get_start_time_lecture
 
 responses:
   utter_greet:
   - text: "Hey! How are you?"
-#    buttons:
-#    - title: "great"
-#      payload: "/mood_great"
-#    - title: "super sad"
-#      payload: "/mood_unhappy"
-#    - title: "try action"
-#      payload: "/start_time"
   utter_welcome:
   - text: "Hi there! What can I help you with today?"
   utter_cheer_up:
@@ -75,8 +55,6 @@ responses:
   - text: "I am a bot, powered by Rasa."
   utter_slots_values:
     - text: "I am going to check for the {class_type} of your choice!"
-#  utter_submit:
-#    - text: "All done!"
   utter_class_slots:
     - text: "I will check for {class_type} {class_name}."
   utter_ask_continue:
@@ -86,55 +64,19 @@ responses:
   utter_ask_class_name:
   - text: "I'm sorry, I didn't catch the name of the class. Could you write it down please?"
   utter_ask_class_type:
-  - text: "Do you wanna know about the lecture, exercise or seminar?"
+  - text: "I'm sorry, I didn't catch the type of the class. Could you write it down please?"
   utter_out_of_scope:
   - text: "I understand that you want to know the exam type of {class_name} but I can't handle that request yet. :("
   utter_default:
     - text: "I'm sorry, I'm just a little bot. I can't answer this question. :("
 
 slots:
-#  class_name:
-#    type: text # only the presence or absence of this slot will have influence on the conversation
-#    # other available types:
-#    #   boolean # true or false (ex. valid ID) the value will influence the conversation
-#    #   float
-#    #     min_value: 0
-#    #     max_value: 100
-#    #     initial_value: 100
-#    #   list # only the presence or absence of this slot will have influence on the conversation
-#    #   any # will never have any influence on the conversation (only used to store values)
-#    #   categorical # the value will influence the conversation
-#    #    values:
-#    #      - low
-#    #      - medium
-#    #      - high
-#    influence_conversation: true
-#    mappings:
-#    - type: from_entity    # from_text, from_intent, from_trigger_intent, custom
-#      entity: class_name
-##      role: class_name
-#      conditions:
-#        - active_loop: get_start_time_form
-#  class_type:
-#    type: text
-#    influence_conversation: true
-#    mappings:
-#    - type: from_entity
-#      entity: class_type
-##      intent: start_time # would be triggered ONLY with this intent
-##      not_intent: start_time # would NOT be triggered with this intent
-##      role: class_type # only applies the mapping if the extracted entity has this role
-#      conditions:
-#        - active_loop: get_start_time_form
   class_name:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
       entity: class_name
-#      conditions:
-#        - active_loop: class_name_type_form
-#          requested_slot: class_name
   class_type:
     type: text
     influence_conversation: true
@@ -148,12 +90,7 @@ slots:
       - type: from_entity
         entity: weekday
 
-
 forms:
-#  simple_start_time_form:
-#    required_slots:
-#      - class_name
-#      - class_type
   class_name_type_form:
     required_slots:
       - class_name
@@ -161,6 +98,7 @@ forms:
   class_name_form:
     required_slots:
       - class_name
+
 session_config:
-  session_expiration_time: 180
+  session_expiration_time: 360
   carry_over_slots_to_new_session: true

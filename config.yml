@@ -28,9 +28,6 @@ pipeline:
 #   - name: FallbackClassifier
 #     threshold: 0.3
 #     ambiguity_threshold: 0.1
- - name: DucklingEntityExtractor
-   dimensions: ["email", "number"]
-   url: "https://duckling-server:8000"
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
@@ -41,7 +38,7 @@ policies:
     core_fallback_action_name: "action_default_fallback"
     enable_fallback_prediction: True
   - name: TEDPolicy
-    max_history: 7
+    max_history: 5
     constrain_similarities: true
     epochs: 100
   - name: MemoizationPolicy
