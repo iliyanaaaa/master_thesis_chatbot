@@ -154,14 +154,14 @@ nlu:
     - Wann fängt [Stochastik I](class_name) an
     - Wann beginnt die [Vorlesung](class_type) [Wissen und seine Ressourcen](class_name)?
     - At which time does [Statistik II](class_name) start
-    - At what time does the [lecture](class_type) start on [Tuesday](weekday)? 
+    - At what time does the [lecture](class_type) start on [Tuesday](weekday)?
     - At what time does the [exercise](class_type) [Mathematik II](class_type) start
     - At what hour of the day does [IS](class_name) start?
 - intent: out_of_scope
   examples: |
     - [information systems](class_name) [seminar](class_type) exam type
     - [Morphologie](class_name) exam type?
-    - [The Interwar Years: Democracy, Politics and Gender](class_name) exam 
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) exam
     - [Urban Theory](class_name) exam format
     - [Statstik](class_name) [Seminar](class_type) exam Format
     - Hey, what is the exam form for [behavioural economics](class_name)?
@@ -177,10 +177,10 @@ nlu:
     - Is the [seminar](class_type) [information systems](class_name) exam written?
     - Prüfingsform Klausur [Zahlentheorie](class_name)
     - modus exam [Stochastik I](class_name)
-    - In what Form is the exam going to be 
+    - In what Form is the exam going to be
     - Form of exam?
     - what is the type of exam?
-    - What kind of exam will it be? 
+    - What kind of exam will it be?
     - is my exam written?
     - exam [Accouting Theory and Earnings Management](class_name)
     - is the [Mathematik II](class_name) exam written, oral or in paper?
@@ -190,14 +190,14 @@ nlu:
     - What's the format of the [Semantics](class_name) exam
     - what format is the [ADAMS](class_name) exam taken in
     - What type of exam will [Vorbereitung des berufsfelderschließenden Praktikums:Bildungseinstellungen und Bildungserfolge](class_name) have?
-    - Whats the exam format for [Social preferences](class_name)? 
+    - Whats the exam format for [Social preferences](class_name)?
     - What kind of exam do I have to do in [Einführung in die skandinavistische Sprachwissenschaft](class_name)?
     - How is the [GLUD](class_name) exam composed?
     - Is the exam in [Business Analytics](class_name) written or …
     - What kind of exam does [Analysis II](class_name) have?
     - what is the exam type of [Arithmetische Geometrie](class_name) going to be
     - will the exam for [statistics 1](class_name) be written, oral or on paper?
-    - Wird die Klausur in der Vorlesung [Wissen und seine Ressourcen](class_name) schriftlich oder mündlich stattfinden oder soll ich eine Abgabe einreichen? 
+    - Wird die Klausur in der Vorlesung [Wissen und seine Ressourcen](class_name) schriftlich oder mündlich stattfinden oder soll ich eine Abgabe einreichen?
     - In which form will the exam of [Information Systems](class_name) be?
     - In which form will the [Marketing Management](class_name) exam be for Summer 2022?
     - Exam [Frankophonie](class_name)
@@ -206,7 +206,7 @@ nlu:
   examples: |
     - [information systems](class_name) [seminar](class_type) summary
     - [Morphologie](class_name) summary?
-    - [The Interwar Years: Democracy, Politics and Gender](class_name) topics 
+    - [The Interwar Years: Democracy, Politics and Gender](class_name) topics
     - [Urban Theory](class_name) topic
     - Hey, what is the class [behavioural economics](class_name) about?
     - What is the [seminar](class_type) [Humanbiologie](class_name) about?
@@ -253,7 +253,7 @@ nlu:
     - [Masterseminare Fachdidaktik] registration deadline
     - [Finnisch 2](class_name) registration
     - [Frankophonie](class_name) [senior seminar](class_type) registration
-    - [Struktur von Proteinen](class_name) [ground course](class_type) application 
+    - [Struktur von Proteinen](class_name) [ground course](class_type) application
     - [Statistik I](class_name) [ground course](class_type) application deadline
 - intent: ask_class_lecturer
   examples: |
@@ -268,7 +268,7 @@ nlu:
     - [Business Analytics](class_name) professor
     - Professor [Happily ever after. Erzählungen von Ehe zwischen Gefühl und Kalkül](class_name)
     - Professor [Information Systems](class_name)
-    - [Research Practice](class_name) [Seminar](class_type) prof 
+    - [Research Practice](class_name) [Seminar](class_type) prof
     - [Written Academic Discourse: Writing and Revising the Essay](class_name) [seminar](class_type) lecturer
     - Who is the lecturer for the class [behavioural economics](class_name)?
     - Who is the lecturer for the [lecutre](class_type) [behavioural economics](class_name)?
@@ -300,6 +300,7 @@ nlu:
     - Wer unterrichtet [Humanbiologie](class_name)
     - Wer unterrichtet [RNA Biologie](class_name) [vorlesung](class_type)
     - Wer ist der Professor/die Professorin, der die [Vorlesung](class_type) [Biophysik der Photosynthese](class_name) leiten wird?
+    - Who is the professor of the [Bodenprozesse](class_name)?
 - intent: ask_class_location
   examples: |
     - Location [information systems](class_name) [seminar](class_type)
@@ -321,7 +322,7 @@ nlu:
     - room [Semantics](class_name)
     - [Research Practice](class_name) location
     - place [lecture](class_type) [The Interwar Years: Democracy, Politics and Gender](class_name) thursday
-    - Where is [Pedagogic Grammar](class_name) going to take place? 
+    - Where is [Pedagogic Grammar](class_name) going to take place?
     - [Zahlentheorie](class_name) which Room [Thursday](weekday)?
     - Which room [Urban Theory](class_name)
     - Room [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
@@ -340,19 +341,19 @@ nlu:
     - [Statistik II](class_name) [exercise](class_type) location on [Monday](weekday)
     - [Statistik II](class_name) [exercise](class_type) location [wed](weekday)
     - [Statistik II](class_name) [exercise](class_type) location
-    - Where does [APA](class_name) take place? 
-    - Where does the [Analysis II](class_name) [seminar](class_type) take place 
+    - Where does [APA](class_name) take place?
+    - Where does the [Analysis II](class_name) [seminar](class_type) take place
     - Where do I have to go for the [language course](class_type) [Spanish 2](class_name)
-    - Where does the [GLUD](class_name) [lecture](class_type) take place on [wednesday](weekday)? 
+    - Where does the [GLUD](class_name) [lecture](class_type) take place on [wednesday](weekday)?
     - Where does the [GLUD](class_name) [lecture](class_type) take place?
-    - Where does the [GLUD](class_name) [lecture](class_type) take place on [thu](weekday)? 
+    - Where does the [GLUD](class_name) [lecture](class_type) take place on [thu](weekday)?
     - Where is [Grammaire et traduction](class_name)
     - [APA](class_name) [seminar](class_type) location on [Thursday](weekday)
     - where does the [exercise](class_type) [Einführung in die skandinavistische Sprachwissenschaft](class_name) take place
     - where does the [ground course](class_type) [Language Change](class_name) take place
     - where does the [practical seminar](class_type) [Morphologie](class_name) take place on [Thursday](weekday)
     - where does the [lecture](class_type) [Sanskritt II](class_name) take place [wednesdays](weekday)
-    - Where will this course [Arithmetische Geometrie](class_name) taking place? 
+    - Where will this course [Arithmetische Geometrie](class_name) taking place?
     - please tell me where does  [statistics 1](class_name) [exercise](class_type) on [monday](weekday) take place
     - In welchem Raum findet die Vorlesung [Wissen und seine Ressourcen](class_name) statt?
     - Where is [Information Systems](class_name) taking place on [Monday](weekday)?
@@ -360,7 +361,9 @@ nlu:
     - where is my lecture taking place on [Thu](weekday)?
     - place [language course](class_type) [Russian A1](class_name)
     - Place of [lecture](class_type) of [Grammaire et traduction](class_name)
-
+    - Where does the [Bodenprozesse](class_name) take place?
+    - Where is the location of [Analysis II](class_name)?
+    - Where is the [Bodenprozesse](class_name) supposed to be?
 - intent: ask_class_moodle_link
   examples: |
     - moodle link to [Pedagogic Grammar](class_name)?
@@ -414,7 +417,7 @@ nlu:
     - can you give me the link to the online class?
     - moodle link [lecture](class_type) [BADS](class_name)
     - moodle link of [Business Analytics](class_name)
-
+    - Do you have the Moodle link for the [Bodenprozesse](class_name)?
 - intent: inform
   examples: |
     - [lecture](class_type)
@@ -445,10 +448,10 @@ nlu:
     - [information systems[(class_name) [seminar](class_type)
     - [Seminar](class_type) [English Syntax](class_name)
     - [VL Grundlagen der Fachdidaktik - Grundschule](class_name)
-    - [Statistik I](class_name) [ground course](class_type) 
+    - [Statistik I](class_name) [ground course](class_type)
     - [master seminar](class_type) [Masterseminare Fachdidaktik](class_name)
     - [Schriftlicher Ausdruck B1](class_name)
-    - [language course](class_type) [Arabisch IV](class_name) 
+    - [language course](class_type) [Arabisch IV](class_name)
     - [colloquium](class_type) [Psycholinguistik](class_name)
     - [senior seminar](class_type) [Psycholinguistik](class_name)
     - [Game Theory](class_name)
@@ -472,16 +475,13 @@ nlu:
     - [Finnisch 2](class_name)
     - [Finnisch 4](class_name)
     - [Frankophonie](class_name)
-    - [Game Theory](class_name)
     - [Grammaire](class_name)
     - [Grammatica](class_name)
-    - [Große Spiele](class_name)
     - [Hindi IV](class_name)
     - [Humanbiologie](class_name)
     - [Immersive Medien](class_name)
     - [Isländisch 2](class_name)
     - [Isländisch 4](class_name)
-    - [Kleine Spiele](class_name)
     - [Language Change](class_name)
     - [Lektüreübung](class_name)
     - [Litauisch](class_name)
@@ -523,10 +523,8 @@ nlu:
     - [Tekstproduktion](class_name)
     - [Tekstreception](class_name)
     - [Textlektüre A2/B1](class_name)
-    - [Topologie I](class_name)
     - [Tutorium](class_name)
     - [Tutorium Syntax](class_name)
-    - [Urban Theory](class_name)
     - [Urdu II](class_name)
     - [Vorbereitung SPR](class_name)
     - [Zahlentheorie](class_name)
