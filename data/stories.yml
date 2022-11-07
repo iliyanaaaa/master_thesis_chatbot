@@ -140,6 +140,7 @@ stories:
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
+  - action: action_restart
 
 - story: interactive_class_start_time_story_4
   steps:
@@ -235,6 +236,7 @@ stories:
     - intent: affirm
   - action: action_deactivate_loop
   - active_loop: null
+  - action: action_restart
 
 - story: interactive_class_location_story_1
   steps:
@@ -356,6 +358,7 @@ stories:
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
+  - action: action_restart
 
 - story: User interrupts the open question form and doesn't want to continue
   steps:
@@ -371,3 +374,4 @@ stories:
     - intent: affirm
   - action: action_deactivate_loop
   - active_loop: null
+  - action: action_restart

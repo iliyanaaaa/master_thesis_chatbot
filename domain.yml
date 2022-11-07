@@ -28,9 +28,6 @@ actions:
   - utter_greet
   - utter_cheer_up
   - action_get_answer
-  - action_get_moodle_link
-  - action_check_existence
-  - action_get_lecturer
   - utter_submit
   - utter_class_slots
   - utter_ask_continue

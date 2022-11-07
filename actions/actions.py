@@ -54,7 +54,7 @@ VARIABLES_DICT = {'class_types': 'class_type',
 
 
 def perform_query(mode, looking_for, class_name=None, class_type=None, weekday=None, con=None) -> pd.DataFrame:
-    '''
+    """
     Method that fetches the needed information from the database/csv file
 
     :param mode: defines whether the DB or the csv file should be used
@@ -66,7 +66,7 @@ def perform_query(mode, looking_for, class_name=None, class_type=None, weekday=N
     :param con: DB connection if present
 
     :return: a data frame containing the result from the query
-    '''
+    """
     if mode == 'database' and con is not None:
         if looking_for == 'all_classes':
             query = get_all_classes_info_query
@@ -246,7 +246,7 @@ class ValidateClassNameTypeForm(FormValidationAction):
         df = perform_query(mode=MODE, looking_for='all_classes', class_name=class_name,
                            class_type=class_type, con=sqa_con)
         if df.empty:
-            class_type_string = '' if class_type is None else + CLASS_TYPES_DE_EN.get(class_type)
+            class_type_string = '' if class_type is None else CLASS_TYPES_DE_EN.get(class_type)
             dispatcher.utter_message(text=f"I'm sorry. There is no {class_type_string} {class_name} in the database.")
             return {"class_type": None}
         return {"class_type": class_type}
@@ -345,6 +345,8 @@ class ActionGetAnswer(Action):
         weekday = tracker.get_slot('weekday')
         message = choose_action(tracker, class_name, class_type, weekday)
         dispatcher.utter_message(text=message)
+
+        return [SlotSet('class_name', None), SlotSet('class_type', None), SlotSet('weekday', None)]
 
 
 def return_class_start_time(class_name, class_type, weekday) -> Text:
