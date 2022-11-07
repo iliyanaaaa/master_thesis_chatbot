@@ -1,11 +1,8 @@
 import psycopg2
 import sqlalchemy
 
-USER = 'qis_lsf'
-PASSWORD = 'password'
-SERVER = 'localhost'
-PORT = '5432'
-DATABASE = 'hislsf_chatbot_export'
+from actions.db_credentials import USER, PASSWORD, SERVER, PORT, DATABASE
+
 SQA_CONN_STR = f"postgresql://{USER}:{PASSWORD}@{SERVER}:{PORT}/{DATABASE}"
 
 SQA_CONN_PUB_ENGINE = sqlalchemy.create_engine(SQA_CONN_STR,

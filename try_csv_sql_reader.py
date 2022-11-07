@@ -1,4 +1,5 @@
 ## Import the CSVSQL
+import Levenshtein
 import pandas as pd
 from csvkit.utilities.csvsql import CSVSQL
 
@@ -21,12 +22,12 @@ args_query3 = ['--query', get_weekday_en_de, 'data/csv_exports/weekdays.csv']
 # result2 = CSVSQL(args_query3)
 # print(result2.main().__class__)
 # df = pd.DataFrame(result2.main())
-# print(df)
 VARIABLES_DICT = {'class_types': 'class_type',
+                  'all_classes': ' class_name, class_type',
                   'start_time': ' class_name, class_type, start_time, week_day',
-                  'lecturer': ' lecturer',
-                  'location': ' room, floor , building , facility , address',
-                  'moodle_link': 'hyperlink',
+                  'lecturer': ' lecturer, week_day',
+                  'location': ' room, floor , building , facility , address, week_day',
+                  'moodle_link': 'hyperlink, week_day',
                   'class_is_about': 'txt'}
 
 
@@ -40,38 +41,46 @@ def perform_query(mode, looking_for, class_name=None, class_type=None, weekday=N
             query = get_weekday_en_de
         else:
             variables = VARIABLES_DICT.get(looking_for)
-            print(variables)
             query = class_info_view_txt_query_class_name % (variables, class_name)
             if class_type is not None:
                 query += add_class_type_query % class_type
             if weekday is not None:
                 query += add_weekday_query % weekday
-        print('Final query is ', query)
+        print('Final query is', query)
         df = pd.read_sql(query, con=con)
     elif mode == 'local_csv':
         if looking_for == 'weekdays':
-            df = pd.read_csv('data/csv_exports/weekdays.csv')
+            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/weekdays.csv')
         elif looking_for == 'types_of_classes':
-            df = pd.read_csv('data/csv_exports/types_of_classes.csv')
+            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/types_of_classes.csv')
         else:
-            df = pd.read_csv('data/csv_exports/class_info_view.csv')
+            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/class_info_view_txt.csv')
             variables_str = VARIABLES_DICT.get(looking_for)
             variables = variables_str.split(',')
-            if class_type is not None:
+            variables = [x.strip(' ') for x in variables]
+            print('class name:', class_name, 'class type:', class_type, 'week day:', weekday)
+            if class_name is not None:
                 df = df[(df['class_name'] == class_name)]
             if class_type is not None:
                 df = df[(df['class_type'] == class_type)]
             if weekday is not None:
-                df = df[(df['weekday'] == weekday)]
-            df = df[variables]
+                df = df[(df['week_day'] == weekday)]
+            df = df[variables].drop_duplicates(ignore_index=True)
 
     return df
 
 
-df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/class_info_view_txt.csv')
-variables = ['class_name','class_type']
+# df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/class_info_view_txt.csv')
+# variables = ['class_name','class_type']
+#
+# df = df[variables].drop_duplicates(inplace=True)
+#
+# print(df.columns)
+# print(df['class_name'].values)
 
-df = df[variables].drop_duplicates(inplace=True)
+df = perform_query(mode='database', looking_for='moodle_link', class_name='Social Hydrology',
+                   class_type=None, weekday=None, con=SQA_CONN_PUB)
 
-print(df.columns)
-print(df['class_name'].values)
+if pd.isna(df.iloc[0]['hyperlink']):
+    print('is nan')
+

@@ -6,46 +6,43 @@ rules:
   steps:
   - intent: goodbye
   - action: utter_goodbye
+  - action: action_restart
 
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
-
-#- rule: start time short
-#  steps:
-#  - intent: start_time
-#  - action: action_get_start_time
+  - action: action_restart
 
 - rule: activate class name type form start time
   steps:
-    - intent: ask_class_start_time
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: ask_class_start_time
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
 
 - rule: activate class name type form lecturer
   steps:
-    - intent: ask_class_lecturer
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: ask_class_lecturer
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
 
 - rule: activate class name type form location
   steps:
-    - intent: ask_class_location
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: ask_class_location
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
 
 - rule: activate class name type form open question
   steps:
-    - intent: ask_open_question
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: ask_open_question
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
 
 - rule: activate class name type form moodle link
   steps:
-    - intent: ask_class_moodle_link
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: ask_class_moodle_link
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
 
 - rule: submit class name type form
   condition:
@@ -57,12 +54,6 @@ rules:
       - requested_slot: null
   - action: action_get_answer
   - action: action_restart
-
-#- rule: activate class name form
-#  steps:
-#    - intent: ask_open_question
-#    - action: class_name_form
-#    - active_loop: class_name_form
 
 - rule: submit class name form
   condition:
@@ -87,21 +78,11 @@ rules:
   - action: utter_default
   - action: action_restart
 
-#- rule: submit lecturer form
-#  condition:
-#  - active_loop: lecturer_form
-#  steps:
-#  - action: lecturer_form
-#  - active_loop: null
-#  - slot_was_set:
-#      - requested_slot: null
-#  - action: action_get_lecturer
-
 - rule: interruption in simple class form
   condition:
     - active_loop: class_name_type_form
   steps:
-    - intent: bot_challenge
-    - action: utter_iamabot
-    - action: class_name_type_form
-    - active_loop: class_name_type_form
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - action: class_name_type_form
+  - active_loop: class_name_type_form
