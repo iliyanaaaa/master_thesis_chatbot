@@ -50,11 +50,11 @@ def perform_query(mode, looking_for, class_name=None, class_type=None, weekday=N
         df = pd.read_sql(query, con=con)
     elif mode == 'local_csv':
         if looking_for == 'weekdays':
-            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/weekdays.csv')
+            df = pd.read_csv('/data/csv_exports/weekdays.csv')
         elif looking_for == 'types_of_classes':
-            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/types_of_classes.csv')
+            df = pd.read_csv('/data/csv_exports/types_of_classes.csv')
         else:
-            df = pd.read_csv('C:/Users/tarpo/PycharmProjects/master_thesis_chatbot/data/csv_exports/class_info_view_txt.csv')
+            df = pd.read_csv('/data/csv_exports/class_info_view_txt.csv')
             variables_str = VARIABLES_DICT.get(looking_for)
             variables = variables_str.split(',')
             variables = [x.strip(' ') for x in variables]
