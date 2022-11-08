@@ -5,8 +5,6 @@ nlu:
     - hey
     - hello
     - hi
-    - hello, my name is [Juste](name)
-    - hi, I'm [Juste](name)
     - hello there
     - good morning
     - good evening
